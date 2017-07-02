@@ -1,0 +1,76 @@
+﻿@using Apps.Models.Sys;
+
+@model Apps.Models.Sys.SysExceptionModel
+@{
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+    ViewBag.Title = "详细";
+}
+
+<table class="fromEditTable setTextWidth300">
+    <tbody>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.HelpLink)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.HelpLink)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Message)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Message, new { @style = "height:100px;width:550px" })
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Source)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Source)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.StackTrace)
+            </th>
+            <td>
+
+                @Html.DisplayFor(model => model.StackTrace, new { @style = "height:100px;width:550px" })
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.TargetSite)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TargetSite, new { @style = "height:100px;width:550px" })
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Data)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Data)
+            </td>
+        </tr>
+
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.CreateTime)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CreateTime)
+            </td>
+        </tr>
+
+    </tbody>
+</table>

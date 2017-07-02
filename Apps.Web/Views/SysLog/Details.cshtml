@@ -1,0 +1,61 @@
+﻿@using Apps.Models.Sys;
+
+@model Apps.Models.Sys.SysLogModel
+
+@{
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+    ViewBag.Title = "详细";
+}
+
+<table class="fromEditTable setTextWidth300">
+    <tbody>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Operator)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Operator)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Message)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Message, new { @style = "height:100px;" })
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Result)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Result)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Type)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Type)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.Module)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.Module)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.LabelFor(model => model.CreateTime)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CreateTime)
+            </td>
+        </tr>
+    </tbody>
+</table>

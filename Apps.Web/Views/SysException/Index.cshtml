@@ -1,0 +1,127 @@
+﻿@using Apps.Models.Sys;
+@using Apps.Web.Core;
+@model Apps.Models.Sys.SysExceptionModel
+@{
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.easyui.plus.js")" type="text/javascript"></script>
+<div id="modalwindow" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+
+<div class="mvctool">
+    <input id="txtQuery" type="text" class="searchText">
+    <!--
+    <a id="btnQuery" style="float: left;" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-search" style="padding-left: 20px;">查询</span></span></a><div class="datagrid-btn-separator"></div>
+    <a id="btnDetails" style="float: left;" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-details" style="padding-left: 20px;">详细</span></span></a><div class="datagrid-btn-separator"></div>
+    <a id="btnDelete" style="float: left;" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-remove" style="padding-left: 20px;">删除</span></span></a><div class="datagrid-btn-separator"></div>
+    -->
+    @Html.ToolButton("btnQuery", "icon-search", "查询", true)
+    @Html.ToolButton("btnDetails", "icon-details", "详细", true)
+    @Html.ToolButton("btnDelete", "icon-remove", "删除", true)
+</div>
+<table id="List"></table>
+<script type="text/javascript">
+    $(function () {
+        $('#List').datagrid({
+            url: '/SysException/GetList',
+            width: $(window).width() - 10,
+            method: 'post',
+            height: $(window).height() -35,
+            fitColumns: true,
+            sortName: 'Id',
+            sortOrder: 'desc',
+            idField: 'Id',
+            striped: true, //奇偶行是否区分
+            singleSelect: true,//单选模式
+            rownumbers: true,//行号
+            pagination: true,
+            pageSize: 10,
+            pageList : [10,20,30,40,50],
+            columns: [[
+                { field: 'Id', title: 'ID', width: 40, hidden: true },
+                { field: 'HelpLink', title: '帮助链接', width: 40 },
+                { field: 'Message', title: '异常信息', width: 200 },
+                { field: 'Source', title: '来源', width: 140 },
+                { field: 'StackTrace', title: '堆栈', width: 40, align: 'center' },
+                { field: 'TargetSite', title: '目标页', width: 40, align: 'center' },
+                { field: 'Data', title: '程序集', width: 60, align: 'center' },
+                { field: 'CreateTime', title: '发生时间', width: 65, align: 'center' }
+            ]]
+        });
+    });
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $(window).resize(function () {
+            $('#List').datagrid('resize', {
+                width: $(window).width() - 10,
+                height: $(window).height() - 35
+            });
+        });
+
+    });
+</script>
+s
+<script type="text/javascript">
+
+    //ifram 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+    //iframe 返回并刷新
+    function frameReturnByReload(flag) {
+        if (flag)
+            $("#List").datagrid('load');
+        else
+            $("#List").datagrid('reload');
+    }
+    //输出信息
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+    $(function () {
+        $("#btnDetails").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+
+                $("#modalwindow").html("<iframe width='100%' height='98%' scrolling='no' frameborder='0' src='/SysException/Details?id=" + row.Id + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '详细', width: 500, height: 300, iconCls: 'icon-details' }).window('open');
+            } else { $.messageBox5s('提示', '请选择要操作的记录'); }
+        });
+        $("#btnQuery").click(function () {
+            var queryStr = $("#txtQuery").val();
+            //如果查询条件为空默认查询全部
+            if (queryStr == null) {
+                queryStr = "%";
+            }
+            $('#List').datagrid({
+                url: '/SysException/GetList?queryStr=' + encodeURI(queryStr)
+            });
+
+        });
+        $("#btnDelete").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $.messager.confirm('提示', '确定删除', function (r) {
+                    if (r) {
+                        $.post("/SysException/Delete?id=" + row.Id, function (data) {
+                            if (data.tag == 1)
+                            {
+                                $("#List").datagrid('load');
+                                $.messageBox5s('提示', data.message);
+                            } else {
+                                $.messageBox5s('提示', data.message+data.value);
+                            }
+                                
+                        }, "json");
+
+                    }
+                });
+            } else { $.messageBox5s('提示', '请选择要操作的记录'); }
+        });
+    });
+</script>
+
+
