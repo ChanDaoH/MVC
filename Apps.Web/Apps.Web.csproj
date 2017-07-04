@@ -168,6 +168,7 @@
     <Compile Include="Core\BaseException.cs" />
     <Compile Include="Core\ExtendMvcHtml.cs" />
     <Compile Include="Core\LogHandler.cs" />
+    <Compile Include="Core\SupportFilterAttribute.cs" />
     <Compile Include="Core\verify_code.ashx.cs">
       <DependentUpon>verify_code.ashx</DependentUpon>
     </Compile>
@@ -580,6 +581,10 @@
     <ProjectReference Include="..\Apps.IBLL\Apps.IBLL.csproj">
       <Project>{ed76f4f9-8943-4df0-88a9-1cbd2cfce4e4}</Project>
       <Name>Apps.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apps.IDAL\Apps.IDAL.csproj">
+      <Project>{f1234878-591c-4114-8f97-d106c716fcbf}</Project>
+      <Name>Apps.IDAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Apps.Models\Apps.Models.csproj">
       <Project>{3e84a97e-df41-4496-9dff-c650595e23d8}</Project>

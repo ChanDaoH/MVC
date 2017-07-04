@@ -35,6 +35,7 @@ namespace Apps.Web.Controllers
         }
 
         [HttpPost]
+        [SupportFilter(ActionName = "Index")]
         public JsonResult Getlist(GridPager pager,string queryStr = null)
         {
             List<SysSampleModel> list = m_BLL.GetList(ref pager, queryStr);
@@ -129,6 +130,11 @@ namespace Apps.Web.Controllers
             }
         }
         #endregion
+        [SupportFilter]
+        public void Test()
+        {
+
+        }
     }
     
 }

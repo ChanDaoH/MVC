@@ -29,6 +29,9 @@ namespace Apps.Core
 
             container.RegisterType<IAccountBLL, AccountBLL>();
             container.RegisterType<IAccountRepository, AccountRepository>();
+
+            container.RegisterType<ISysUserBLL, SysUserBLL>();
+            container.RegisterType<ISysRightRepository, SysRightRepository>();
         }
     }
 }

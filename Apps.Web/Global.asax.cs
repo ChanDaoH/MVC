@@ -26,7 +26,7 @@ namespace Apps.Web
             var container = new UnityContainer();
             DependencyRegisterType.Container_Sys(ref container);
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
-
+            Application["UnityContainer"] = container;
             
         }
 

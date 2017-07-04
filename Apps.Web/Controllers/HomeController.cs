@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Microsoft.Practices.Unity;
 using Apps.IBLL;
 using Apps.Models;
+using Apps.Models.Sys;
 
 namespace Apps.Web.Controllers
 {
@@ -25,24 +26,33 @@ namespace Apps.Web.Controllers
         /// <returns>树</returns>
         public JsonResult GetTree( string id )
         {
-            List<SysModule> list = homeBLL.GetMenuByPersonId(id);
-            var json =
-            (
-                from m in list
-                select new
-                {
-                    id = m.Id,
-                    text = m.Name,
-                    value = m.Url,
-                    showcheck = false,
-                    complete = false,
-                    isexpand = false,
-                    checkstate = 0,
-                    hasChildren = m.IsLast ? false : true,
-                    Icon = m.Iconic
-                }
-            ).ToArray();
-            return Json(json, JsonRequestBehavior.AllowGet);
+            if ( Session["Account"] != null )
+            {
+                AccountModel account = (AccountModel)Session["Account"];
+                List<SysModule> list = homeBLL.GetMenuByPersonId(account.Id, id);
+                var json =
+                (
+                    from m in list
+                    select new
+                    {
+                        id = m.Id,
+                        text = m.Name,
+                        value = m.Url,
+                        showcheck = false,
+                        complete = false,
+                        isexpand = false,
+                        checkstate = 0,
+                        hasChildren = m.IsLast ? false : true,
+                        Icon = m.Iconic
+                    }
+                ).ToArray();
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+            
         }
     }
 }

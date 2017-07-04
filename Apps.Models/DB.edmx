@@ -241,6 +241,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="P_Sys_GetRightOperate2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="varchar" Mode="In" />
+          <Parameter Name="url" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DBStoreContainer">
           <EntitySet Name="SysException" EntityType="Self.SysException" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysLog" EntityType="Self.SysLog" Schema="dbo" store:Type="Tables" />
@@ -319,6 +323,10 @@
             <End Role="SysRole" EntitySet="SysRole" />
             <End Role="SysUser" EntitySet="SysUser" />
           </AssociationSet>
+          <FunctionImport Name="P_Sys_GetRightOperate2" ReturnType="Collection(DB.P_Sys_GetRightOperate2_Result)">
+            <Parameter Name="userId" Mode="In" Type="String" />
+            <Parameter Name="url" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="SysSample">
           <Key>
@@ -536,6 +544,10 @@
           <End Type="DB.SysRole" Role="SysRole" Multiplicity="*" />
           <End Type="DB.SysUser" Role="SysUser" Multiplicity="*" />
         </Association>
+        <ComplexType Name="P_Sys_GetRightOperate2_Result">
+          <Property Type="String" Name="KeyCode" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="IsValid" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -693,6 +705,14 @@
               <ScalarProperty Name="Id" ColumnName="SysRoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="P_Sys_GetRightOperate2" FunctionName="DB.Store.P_Sys_GetRightOperate2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB.P_Sys_GetRightOperate2_Result">
+                <ScalarProperty Name="KeyCode" ColumnName="KeyCode" />
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

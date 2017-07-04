@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Apps.Models;
+using Apps.Models.Sys;
 
 namespace Apps.IBLL
 {
-    public interface IHomeBLL
+    public interface ISysUserBLL
     {
-        List<SysModule> GetMenuByPersonId(string personId,string moduleId);
+        List<PermModel> GetPermission(string accountId, string controller);
     }
 }

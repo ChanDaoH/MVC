@@ -45,6 +45,7 @@
     <Compile Include="ISysExceptionBLL.cs" />
     <Compile Include="ISysLogBLL.cs" />
     <Compile Include="ISysSampleBLL.cs" />
+    <Compile Include="ISysUserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

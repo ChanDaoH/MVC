@@ -67,6 +67,7 @@
     <Compile Include="SysExceptionBLL.cs" />
     <Compile Include="SysLogBLL.cs" />
     <Compile Include="SysSampleBLL.cs" />
+    <Compile Include="SysUserBLL.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Apps.Common\Apps.Common.csproj">

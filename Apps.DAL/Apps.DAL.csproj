@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysExceptionRepository.cs" />
     <Compile Include="SysLogRepository.cs" />
+    <Compile Include="SysRightRepository.cs" />
     <Compile Include="SysSampleRepository.cs" />
   </ItemGroup>
   <ItemGroup>

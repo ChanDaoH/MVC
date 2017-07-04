@@ -120,7 +120,9 @@
         });
         $("#btnDelete").click(function () {
             var row = $('#List').datagrid('getSelected');
+            debugger;
             if (row != null) {
+                debugger;
                 $.messager.confirm('提示', '@Suggestion.YouWantToDeleteTheSelectedRecords', function (r) {
                     if (r) {
                         $.post("/SysSample/Delete?id=" + row.Id, function (data) {
