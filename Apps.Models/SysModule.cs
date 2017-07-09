@@ -30,7 +30,7 @@ namespace Apps.Models
         public string Iconic { get; set; }
         public Nullable<int> Sort { get; set; }
         public string Remark { get; set; }
-        public Nullable<bool> State { get; set; }
+        public bool Enable { get; set; }
         public string CreatePerson { get; set; }
         public Nullable<System.DateTime> CreateTime { get; set; }
         public bool IsLast { get; set; }

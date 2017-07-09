@@ -81,7 +81,7 @@ namespace Apps.BLL
         {
             SysException entity = Rep.GetById(id);
             if (entity == null)
-                return new SysExceptionModel();
+                return null;
             SysExceptionModel model = new SysExceptionModel();
             model.Id = entity.Id;
             model.HelpLink = entity.HelpLink;

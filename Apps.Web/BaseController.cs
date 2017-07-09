@@ -125,5 +125,15 @@ namespace Apps.Web
             }
             return true;
         }
+        /// <summary>
+        /// 获取当前页的操作访问权限
+        /// </summary>
+        /// <returns>权限列表</returns>
+        public List<PermModel> GetPermission()
+        {
+            string filePath = HttpContext.Request.FilePath;
+            List<PermModel> permList = Session[filePath] as List<PermModel>;
+            return permList;
+        }
     }
 }

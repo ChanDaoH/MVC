@@ -1,0 +1,160 @@
+﻿@using Apps.Models.Sys;
+@using Apps.Common;
+@using Apps.Web.Core;
+
+@model Apps.Models.Sys.SysRoleModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+
+    List<PermModel> perm = ViewBag.perm;
+    if ( perm == null )
+    {
+        perm = new List<PermModel>();
+    }
+
+}
+
+<script src="@Url.Content("~/Scripts/jquery.easyui.plus.js")" type="text/javascript"></script>
+<div id="modalwindow" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+<div class="mvctool">
+    <input id="txtQuery" type="text" class="searchText" />
+    @Html.ToolButton("btnQuery", "icon-search", "查询",true,perm,"Query")
+    @Html.ToolButton("btnCreate", "icon-add", "新增",true, perm, "Create")
+    @Html.ToolButton("btnEdit", "icon-edit", "编辑", true, perm, "Edit")
+    @Html.ToolButton("btnDetails", "icon-details", "详细",true, perm, "Details")
+    @Html.ToolButton("btnDelete", "icon-remove", "删除", true, perm, "Delete")
+    @Html.ToolButton("btnAllot", "icon-share", "分配用户", true, perm, "Allot")
+</div>
+
+<table id="List">
+
+</table>
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#List").datagrid({
+            url: '@Url.Action("GetList")',
+            method: 'post',
+            width: $(window).width() - 10,
+            height: $(window).height() - 35,
+            fitColumns: true,
+            sortName: 'CreateTime',
+            sortOrder: 'desc',
+            idField: 'Id',
+            pageSize: 10,
+            pageList: [10, 20, 30, 40,50],
+            pagination: true,
+            striped: true, //奇偶行是否区分
+            singleSelect: true,//单选模式
+            columns: [[
+                { field: 'Id', title: 'ID', width: 80, hidden: true },
+                { field: 'Name', title: '角色名称', width: 80, sortable: true },
+                { field: 'Description', title: '说明', width: 80 },
+                { field: 'CreatePerson', title: '创建人', width: 80 },
+                { field: 'CreateTime', title: '创建时间', width: 80, sortable: true },
+                {
+                    field: 'UserName', title: '属下管理员', width: 80, formatter: function (value) {
+                        var userName = "";
+                        for (var i = 0; i < value.length; i++) {
+                            userName += "[" + value[i] + "]";
+                        }
+                        return userName;
+                    }
+                }
+
+            ]]
+        });
+
+    });
+</script>
+
+<script type="text/javascript">
+    //ifram 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+    function frameReturnByReload(flag) {
+        if (flag)
+            $("#List").datagrid('load');
+        else
+            $("#List").datagrid('reload');
+    }
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#btnCreate').click(function () {
+            $('#modalwindow').html("<iframe width='100%' height='98%' scrolling = 'no' frameborder = '0' src='/SysRole/Create' ></iframe>");
+            $('#modalwindow').window({ title: '新增', width: 700, height: 400, iconCls: 'icon-add' }).window('open');
+        });
+
+        $('#btnEdit').click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $('#modalwindow').html("<iframe width='100%' height='98%' scrolling = 'no' frameborder = '0' src='/SysRole/Edit?id=" + row.Id + "&leguid=" + GetGuid() + "'></iframe>");
+                $('#modalwindow').window({ title: '编辑', width: 700, height: 430, iconCls: 'icon-edit' }).window('open');
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PlaseChooseToOperatingRecords');
+            }
+        });
+
+        $('#btnDetails').click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $('#modalwindow').html("<iframe width='100%' height='98%' scrolling = 'no' frameborder = '0' src='/SysRole/Details?id=" + row.Id + "&leguid=" + GetGuid() + "'></iframe>");
+                $('#modalwindow').window({ title: '详细', width: 500, height: 300, iconCls: 'icon-details' }).window('open');
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PlaseChooseToOperatingRecords');
+            }
+        });
+
+        $('#btnDelete').click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $.messager.confirm('提示', '@Suggestion.YouWantToDeleteTheSelectedRecords', function (r) {
+                    if (r) {
+                        $.post("/SysRole/Delete?id=" + row.Id, function (data) {
+                            if (data.tag == 1) {
+                                $('#List').datagrid('load');
+                                $.messageBox5s('提示', data.message);
+                            } else {
+                                $.messageBox5s('提示', data.message);
+                            }
+                        }, 'json');
+                    }
+                });
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PlaseChooseToOperatingRecords');
+            }
+        });
+
+        $('#btnQuery').click(function () {
+            var queryStr = $('#txtQuery').val();
+            if (queryStr == null) {
+                queryStr = "%";
+            }
+            $('#List').datagrid({
+                url: '@Url.Action("GetList")?queryStr='+ encodeURI(queryStr)
+            })
+        });
+
+        $('#btnAllot').click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $('#modalwindow').html("<iframe width='100%' height='98%' scrolling = 'no' frameborder = '0' src='/SysRole/Allot?id=" + row.Id + "&leguid=" + GetGuid() + "'></iframe>");
+                $('#modalwindow').window({ title: '分配', width: 800, height: 300, iconCls: 'icon-details' }).window('open');
+            } else {
+                $.messageBox5s('提示', '@Suggestion.PlaseChooseToOperatingRecords');
+            }
+        });
+
+    })
+</script>
+
+

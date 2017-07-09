@@ -65,7 +65,16 @@
       <DependentUpon>DB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="P_Sys_GetRightByRoleAndModule_Result.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
     <Compile Include="P_Sys_GetRightOperate2_Result.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="P_Sys_GetRoleByUserId_Result.cs">
+      <DependentUpon>DB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="P_Sys_GetUserByRoleId_Result.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
     <Compile Include="SysException.cs">
@@ -97,9 +106,17 @@
     </Compile>
     <Compile Include="Sys\AccountModel.cs" />
     <Compile Include="Sys\PermModel.cs" />
+    <Compile Include="Sys\RightModuleOperateModel.cs" />
+    <Compile Include="Sys\RoleUserInfoModel.cs" />
     <Compile Include="Sys\SysExceptionModel.cs" />
     <Compile Include="Sys\SysLogModel.cs" />
+    <Compile Include="Sys\SysModuleModel.cs" />
+    <Compile Include="Sys\SysModuleOperateModel.cs" />
+    <Compile Include="Sys\SysRightOperateModel.cs" />
+    <Compile Include="Sys\SysRoleModel.cs" />
     <Compile Include="Sys\SysSampleModel.cs" />
+    <Compile Include="Sys\SysUserModel.cs" />
+    <Compile Include="Sys\UserRoleInfoModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DB.edmx">

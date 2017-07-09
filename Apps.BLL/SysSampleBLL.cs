@@ -12,9 +12,8 @@ using Apps.BLL.Core;
 
 namespace Apps.BLL
 {
-    public class SysSampleBLL : ISysSampleBLL
+    public class SysSampleBLL : BaseBLL,ISysSampleBLL
     {
-        DBContainer db = new DBContainer();
         [Dependency]
         public ISysSampleRepository Rep { get; set; }
         /// <summary>

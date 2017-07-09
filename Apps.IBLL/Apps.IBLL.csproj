@@ -44,6 +44,10 @@
     <Compile Include="IHomeBLL.cs" />
     <Compile Include="ISysExceptionBLL.cs" />
     <Compile Include="ISysLogBLL.cs" />
+    <Compile Include="ISysModuleBLL.cs" />
+    <Compile Include="ISysModuleOperateBLL.cs" />
+    <Compile Include="ISysRightBLL.cs" />
+    <Compile Include="ISysRoleBLL.cs" />
     <Compile Include="ISysSampleBLL.cs" />
     <Compile Include="ISysUserBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

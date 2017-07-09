@@ -25,9 +25,9 @@ namespace Apps.Models
         public string RoleId { get; set; }
         public bool Rightflag { get; set; }
     
-        public virtual SysModule SysModule { get; set; }
         public virtual SysRole SysRole { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SysRightOperate> SysRightOperate { get; set; }
+        public virtual SysModule SysModule { get; set; }
     }
 }

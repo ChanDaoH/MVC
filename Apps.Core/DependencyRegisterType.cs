@@ -32,6 +32,18 @@ namespace Apps.Core
 
             container.RegisterType<ISysUserBLL, SysUserBLL>();
             container.RegisterType<ISysRightRepository, SysRightRepository>();
+            container.RegisterType<ISysUserRepository, SysUserRepository>();
+
+            container.RegisterType<ISysModuleBLL, SysModuleBLL>();
+            container.RegisterType<ISysModuleRepository, SysModuleRepository>();
+
+            container.RegisterType<ISysModuleOperateBLL, SysModuleOperateBLL>();
+            container.RegisterType<ISysModuleOperateRepository, SysModuleOperateRepository>();
+
+            container.RegisterType<ISysRoleBLL, SysRoleBLL>();
+            container.RegisterType<ISysRoleRepository, SysRoleRepository>();
+
+            container.RegisterType<ISysRightBLL, SysRightBLL>();
         }
     }
 }

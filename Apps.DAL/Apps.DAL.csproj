@@ -52,8 +52,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SysExceptionRepository.cs" />
     <Compile Include="SysLogRepository.cs" />
+    <Compile Include="SysModuleOperateRepository.cs" />
+    <Compile Include="SysModuleRepository.cs" />
     <Compile Include="SysRightRepository.cs" />
+    <Compile Include="SysRoleRepository.cs" />
     <Compile Include="SysSampleRepository.cs" />
+    <Compile Include="SysUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Apps.IDAL\Apps.IDAL.csproj">

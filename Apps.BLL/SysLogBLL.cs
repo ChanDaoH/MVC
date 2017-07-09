@@ -65,7 +65,7 @@ namespace Apps.BLL
             SysLog entity = Rep.GetById(id);
             SysLogModel model = new SysLogModel();
             if (entity == null)
-                return new SysLogModel();
+                return null;
             model.Id = entity.Id;
             model.Operator = entity.Operator;
             model.Message = entity.Message;

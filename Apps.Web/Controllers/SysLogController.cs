@@ -19,11 +19,13 @@ namespace Apps.Web.Controllers
         [Dependency]
         public ISysLogBLL logBLL { get; set; }
         // GET: SysLog
+        [SupportFilter(ActionName = "Index")]
         public ActionResult Index()
         {
             return View();
         }
-
+        [HttpPost]
+        [SupportFilter(ActionName = "Index")]
         public JsonResult GetList(GridPager pager,string queryStr)
         {
             List<SysLogModel> list = logBLL.GetList(ref pager, queryStr);
