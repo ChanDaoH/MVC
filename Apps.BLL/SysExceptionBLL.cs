@@ -26,7 +26,7 @@ namespace Apps.BLL
         /// <returns></returns>
         public List<SysExceptionModel> GetList(ref GridPager pager, string queryStr)
         {
-            IQueryable<SysException> list = Rep.GetList(db);
+            IQueryable<SysException> list = Rep.GetList();
             if ( !string.IsNullOrWhiteSpace(queryStr) )
             {
                 list = list.Where(r => r.Message.Contains(queryStr));

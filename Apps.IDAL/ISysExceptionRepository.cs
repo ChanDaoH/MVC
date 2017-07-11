@@ -7,11 +7,8 @@ using Apps.Models;
 
 namespace Apps.IDAL
 {
-    public interface ISysExceptionRepository
+    public partial interface ISysExceptionRepository
     {
-        int Create(SysException entity);
-        IQueryable<SysException> GetList(DBContainer db);
-        SysException GetById(string id);
-        int Delete(string id);
+       
     }
 }

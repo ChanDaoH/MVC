@@ -21,9 +21,15 @@ namespace Apps.BLL
 
         public List<SysRoleModel> GetList(ref GridPager pager, string queryStr)
         {
-            IQueryable<SysRole> queryData = Rep.GetList(db);
+            IQueryable<SysRole> queryData = null;
             if (!string.IsNullOrWhiteSpace(queryStr))
-                queryData = queryData.Where(r => r.Name.Contains(queryStr));
+            {
+                queryData = Rep.GetList(r => r.Name.Contains(queryStr));
+            }
+            else
+            {
+                queryData = Rep.GetList();
+            }
             pager.totalRows = queryData.Count();
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
             List<SysRoleModel> modelList = (from r in queryData
@@ -57,7 +63,7 @@ namespace Apps.BLL
                         CreatePerson = model.CreatePerson,
                         CreateTime = model.CreateTime
                     };
-                    if (Rep.Create(entity) > 0)
+                    if (Rep.Create(entity) )
                     {
                         //原来想放置DAL层，可惜失败
                         db.P_Sys_InsertSysRight();   //插入角色时，更新权限表
@@ -96,7 +102,7 @@ namespace Apps.BLL
                     CreatePerson = model.CreatePerson,
                     CreateTime = model.CreateTime
                 };
-                if (Rep.Edit(entity) == 1)
+                if (Rep.Edit(entity) )
                     return true;
                 else
                 {

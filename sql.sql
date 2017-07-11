@@ -390,3 +390,19 @@ CREATE PROC P_DeleteSysRoleSysUserByRoleId
 	@roleId varchar(50)
 AS
 	DELETE FROM SysRoleSysUser WHERE SysRoleId = @roleId
+	
+----------------------------------T4Ä£°åÊ¹ÓÃ----------------------------------
+select *
+ from AppsDB.sys.objects obj JOIN AppsDB.sys.sysindexes idx ON obj.object_id = idx.id JOIN AppsDB.sys.schemas sem ON obj.schema_id = sem.schema_id
+where obj.type = 'U'
+order by obj.name 
+
+select *
+from AppsDB.sys.indexes idx JOIN AppsDB.sys.index_columns ic ON idx.index_id = ic.index_id AND idx.object_id = ic.object_id
+
+select col.name ColumnName,tp.name ColumnType,col.is_nullable IsNullable
+from AppsDB.sys.columns col JOIN AppsDB.sys.types tp ON col.system_type_id = tp.system_type_id AND col.user_type_id = tp.user_type_id
+	LEFT JOIN AppsDB.sys.extended_properties ep ON col.object_id = ep.major_id AND col.column_id = ep.minor_id
+where col.object_id = OBJECT_ID('SysSample')
+order by col.column_id
+--------------------------------------------------------------------------------------

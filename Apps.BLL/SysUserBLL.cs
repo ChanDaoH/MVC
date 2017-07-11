@@ -32,11 +32,11 @@ namespace Apps.BLL
             IQueryable<SysUser> queryData = null;
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
-                queryData = m_Rep.GetList(db).Where(a => a.UserName.Contains(queryStr) || a.TrueName.Contains(queryStr));
+                queryData = m_Rep.GetList(a => a.UserName.Contains(queryStr) || a.TrueName.Contains(queryStr));
             }
             else
             {
-                queryData = m_Rep.GetList(db);
+                queryData = m_Rep.GetList();
             }
             pager.totalRows = queryData.Count();
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
@@ -131,7 +131,7 @@ namespace Apps.BLL
                 entity.JobState = model.JobState;
                 entity.Photo = model.Photo;
                 entity.Attach = model.Attach;
-                if (m_Rep.Create(entity) == 1)
+                if (m_Rep.Create(entity))
                 {
                     return true;
                 }
@@ -215,7 +215,7 @@ namespace Apps.BLL
                 entity.Photo = model.Photo;
                 entity.Attach = model.Attach;
 
-                if (m_Rep.Edit(entity) == 1)
+                if (m_Rep.Edit(entity))
                 {
                     return true;
                 }

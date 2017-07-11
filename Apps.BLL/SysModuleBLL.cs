@@ -19,7 +19,7 @@ namespace Apps.BLL
         public ISysModuleRepository Rep { get; set; }
         public List<SysModuleModel> GetList(string parentId)
         {
-            IQueryable<SysModule> queryData = Rep.GetList(db);
+            IQueryable<SysModule> queryData = Rep.GetList();
             queryData = queryData.Where(r => r.ParentId == parentId && r.Id != "0" ).OrderBy(r => r.Sort);
             List<SysModuleModel> modelList = (from r in queryData
                                               select new SysModuleModel()
@@ -85,7 +85,7 @@ namespace Apps.BLL
                     CreateTime = model.CreateTime,
                     IsLast = model.IsLast
                 };
-                if (Rep.Create(entity) == 1)
+                if (Rep.Create(entity))
                 {
                     //分配给角色
                     //
@@ -157,7 +157,7 @@ namespace Apps.BLL
                     CreateTime = model.CreateTime,
                     IsLast = model.IsLast
                 };
-                if (Rep.Edit(entity) == 1)
+                if (Rep.Edit(entity))
                     return true;
                 else
                 {

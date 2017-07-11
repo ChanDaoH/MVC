@@ -8,7 +8,7 @@ using Apps.Models;
 
 namespace Apps.IDAL
 {
-    public interface ISysRightRepository
+    public partial interface ISysRightRepository
     {
         List<PermModel> GetPermission(string accountId, string controller);
 

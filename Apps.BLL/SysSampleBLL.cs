@@ -26,13 +26,13 @@ namespace Apps.BLL
         {
 
             IQueryable<SysSample> queryData = null;
-            queryData = Rep.GetList(db);
-            //排序
-            if ( queryStr != null &&  queryStr != "")
+            if (!string.IsNullOrWhiteSpace(queryStr))
             {
-                queryData = (from r in queryData
-                            where r.Name == queryStr
-                            select r);
+                queryData = Rep.GetList(a => a.Name.Contains(queryStr));
+            }
+            else
+            {
+                queryData = Rep.GetList();
             }
             pager.totalRows = queryData.Count();
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
@@ -106,7 +106,7 @@ namespace Apps.BLL
                 entity.Note = model.Note;
                 entity.CreateTime = model.CreateTime;
 
-                if (Rep.Create(entity) == 1)
+                if (Rep.Create(entity))
                 {
                     return true;
                 }
@@ -175,7 +175,7 @@ namespace Apps.BLL
                 entity.Note = model.Note;
 
 
-                if (Rep.Edit(entity) == 1)
+                if (Rep.Edit(entity))
                 {
                     return true;
                 }

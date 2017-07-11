@@ -10,7 +10,7 @@ using System.Data.Entity;
 
 namespace Apps.DAL
 {
-    public class SysRightRepository:ISysRightRepository,IDisposable
+    public partial class SysRightRepository:ISysRightRepository,IDisposable
     {
         /// <summary>
         /// 根据用户Id和控制器获取用户操作权限

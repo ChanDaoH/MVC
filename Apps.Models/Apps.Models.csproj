@@ -126,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="Common.ttinclude" />
     <None Include="DB.edmx.diagram">
       <DependentUpon>DB.edmx</DependentUpon>
     </None>

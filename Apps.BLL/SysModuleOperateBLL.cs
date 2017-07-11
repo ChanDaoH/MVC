@@ -20,8 +20,8 @@ namespace Apps.BLL
         public List<SysModuleOperateModel> GetList(ref GridPager pager, string queryStr)
         {
             IQueryable<SysModuleOperate> queryData = null;
-            queryData = Rep.GetList(db);
-            queryData = queryData.Where(entity => entity.ModuleId == queryStr);
+            queryData = Rep.GetList(entity => entity.ModuleId == queryStr);
+            //queryData = queryData.Where();
             pager.totalRows = queryData.Count();
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
             List<SysModuleOperateModel> modelList = (from r in queryData
@@ -55,7 +55,7 @@ namespace Apps.BLL
                     IsValid = model.IsValid,
                     Sort = model.Sort
                 };
-                if (Rep.Create(entity) == 1)
+                if (Rep.Create(entity) )
                     return true;
                 else
                 {

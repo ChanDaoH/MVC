@@ -20,7 +20,7 @@ namespace Apps.BLL
         public ISysLogRepository Rep { get; set; }
         public List<SysLogModel> GetList(ref GridPager pager, string queryStr)
         {
-            IQueryable<SysLog> list =  Rep.GetList(db);
+            IQueryable<SysLog> list =  Rep.GetList();
             if ( !string.IsNullOrWhiteSpace(queryStr))
             {
                 list = list.Where(r => r.Message.Contains(queryStr) || r.Module.Contains(queryStr));
