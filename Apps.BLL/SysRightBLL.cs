@@ -13,7 +13,7 @@ using Microsoft.Practices.Unity;
 
 namespace Apps.BLL
 {
-    public class SysRightBLL : BaseBLL,ISysRightBLL
+    public partial class SysRightBLL : ISysRightBLL
     {
         //业务层注入
         [Dependency]

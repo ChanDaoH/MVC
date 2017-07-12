@@ -13,11 +13,11 @@ using Microsoft.Practices.Unity;
 
 namespace Apps.BLL
 {
-    public class SysModuleOperateBLL:BaseBLL,ISysModuleOperateBLL
+    public partial class SysModuleOperateBLL:ISysModuleOperateBLL
     {
         [Dependency]
         public ISysModuleOperateRepository Rep { get; set; }
-        public List<SysModuleOperateModel> GetList(ref GridPager pager, string queryStr)
+        public override List<SysModuleOperateModel> GetList(ref GridPager pager, string queryStr)
         {
             IQueryable<SysModuleOperate> queryData = null;
             queryData = Rep.GetList(entity => entity.ModuleId == queryStr);
@@ -36,7 +36,7 @@ namespace Apps.BLL
                                                       }).ToList();
             return modelList;
         }
-        public bool Create(ref ValidationErrors errors, SysModuleOperateModel model)
+        /*public bool Create(ref ValidationErrors errors, SysModuleOperateModel model)
         {
             try
             {
@@ -69,8 +69,8 @@ namespace Apps.BLL
                 ExceptionHandler.WriteException(ex);
                 return false;
             }
-        }
-        public bool Delete(ref ValidationErrors errors, string id)
+        }*/
+        public override bool Delete(ref ValidationErrors errors, string id)
         {
             try
             {
@@ -94,6 +94,7 @@ namespace Apps.BLL
             }
             
         }
+        /*
         public SysModuleOperateModel GetById(string id)
         {
             if ( IsExist(id) )
@@ -119,6 +120,6 @@ namespace Apps.BLL
         public bool IsExist(string id)
         {
             return Rep.IsExist(id);
-        }
+        }*/
     }
 }

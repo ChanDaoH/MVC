@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Apps.Models.Sys
 {
-    public class RoleUserInfoModel
+    public partial class RoleUserInfoModel
     {
         /// <summary>
         /// 用户Id

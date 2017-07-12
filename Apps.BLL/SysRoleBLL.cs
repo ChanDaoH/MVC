@@ -13,13 +13,13 @@ using Microsoft.Practices.Unity;
 
 namespace Apps.BLL
 {
-    public class SysRoleBLL : BaseBLL , ISysRoleBLL
+    public partial class SysRoleBLL :  ISysRoleBLL
     {
         //业务层注入
         [Dependency]
         public ISysRoleRepository Rep { get; set; }
-
-        public List<SysRoleModel> GetList(ref GridPager pager, string queryStr)
+        
+        public override List<SysRoleModel> GetList(ref GridPager pager, string queryStr)
         {
             IQueryable<SysRole> queryData = null;
             if (!string.IsNullOrWhiteSpace(queryStr))
@@ -44,7 +44,7 @@ namespace Apps.BLL
                                             }).ToList();
             return modelList;
         }
-        public bool Create(ref ValidationErrors errors, SysRoleModel model)
+        public override bool Create(ref ValidationErrors errors, SysRoleModel model)
         {
             try
             {
@@ -84,6 +84,8 @@ namespace Apps.BLL
                 return false;
             }
         }
+        
+        /*
         public bool Edit(ref ValidationErrors errors, SysRoleModel model)
         {
             try
@@ -117,6 +119,8 @@ namespace Apps.BLL
                 return false;
             }
         }
+        */
+        /*
         public bool Delete(ref ValidationErrors errors, string id)
         {
             try
@@ -137,6 +141,8 @@ namespace Apps.BLL
             }
 
         }
+        */
+        /*
         public SysRoleModel GetById(string id)
         {
             SysRole entity = Rep.GetById(id);
@@ -154,7 +160,7 @@ namespace Apps.BLL
         public bool IsExist(string id)
         {
             return Rep.IsExist(id);
-        }
+        }*/
         /// <summary>
         /// 根据角色ID获取用户分配详情
         /// </summary>

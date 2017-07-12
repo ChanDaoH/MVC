@@ -13,17 +13,18 @@ using Apps.BLL.Core;
 
 namespace Apps.BLL
 {
-    public class SysExceptionBLL:ISysExceptionBLL
+    public partial class SysExceptionBLL:ISysExceptionBLL
     {
-        DBContainer db = new DBContainer();
-        [Dependency]
-        public ISysExceptionRepository Rep { get; set; }
+       // DBContainer db = new DBContainer();
+       // [Dependency]
+       // public ISysExceptionRepository Rep { get; set; }
         /// <summary>
         /// 获取列表
         /// </summary>
         /// <param name="pager"></param>
         /// <param name="queryStr"></param>
         /// <returns></returns>
+        /*
         public List<SysExceptionModel> GetList(ref GridPager pager, string queryStr)
         {
             IQueryable<SysException> list = Rep.GetList();
@@ -42,12 +43,14 @@ namespace Apps.BLL
             }
             return CreateModelList(ref pager, ref list);
         }
+        */
         /// <summary>
         /// 创建griddata页
         /// </summary>
         /// <param name="pager"></param>
         /// <param name="list"></param>
         /// <returns></returns>
+        /*
         public List<SysExceptionModel> CreateModelList(ref GridPager pager, ref IQueryable<SysException> list)
         {
             if (pager.page <= 1)
@@ -72,11 +75,13 @@ namespace Apps.BLL
                                                  }).ToList();
             return modelList;
         }
+        */
         /// <summary>
         /// 根据id获取实体
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /*
         public SysExceptionModel GetById(string id)
         {
             SysException entity = Rep.GetById(id);
@@ -93,6 +98,7 @@ namespace Apps.BLL
             model.CreateTime = entity.CreateTime;
             return model;
         }
+        */
         /// <summary>
         /// 创建
         /// </summary>
@@ -125,6 +131,7 @@ namespace Apps.BLL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /*
         public bool Delete(ref ValidationErrors errors, string id)
         {
             try
@@ -156,6 +163,6 @@ namespace Apps.BLL
                 return false;
             }
             
-        }
+        }*/
     }
 }

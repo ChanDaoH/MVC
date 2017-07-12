@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Apps.Models.Sys
 {
-    public class RightModuleOperateModel
+    public partial class RightModuleOperateModel
     {
         /// <summary>
         /// 操作码Id

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Apps.Models.Sys
 {
-    public class SysModuleOperateModel
+    public partial class SysModuleOperateModel
     {
+        /*
         [Display(Name = "ID")]
         public string Id { get; set; }
         [Display(Name = "操作名称")]
@@ -22,5 +23,6 @@ namespace Apps.Models.Sys
         [Required(ErrorMessage = "{0}必须填写")]
         [Display(Name = "排序号")]
         public int Sort { get; set; }
+        */
     }
 }

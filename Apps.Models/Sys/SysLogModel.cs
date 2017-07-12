@@ -7,8 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Apps.Models.Sys
 {
-    public class SysLogModel
+    public partial class SysLogModel
     {
+        /*
         [Display(Name = "ID")]
         public string Id { get; set; }
 
@@ -29,5 +30,6 @@ namespace Apps.Models.Sys
 
         [Display(Name = "创建时间")]
         public DateTime? CreateTime { get; set; }
+        */
     }
 }

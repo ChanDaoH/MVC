@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Apps.Models.Sys
 {
-    public class PermModel
+    public partial class PermModel
     {
         /// <summary>
         /// 操作码

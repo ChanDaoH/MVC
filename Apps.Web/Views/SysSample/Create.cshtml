@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
 
 }
+
 <script type="text/javascript">
     $(function () {
         $("#btnSave").click(function () {
@@ -29,7 +30,6 @@
         });
     });
 </script>
-
 
 <div class="mvctool bgb">
     <a id="btnSave" style="float: left;" class="l-btn l-btn-plain"><span class="l-btn-left"><span class="l-btn-text icon-save" style="padding-left: 20px;">保存</span></span></a>
@@ -84,7 +84,6 @@
                 <td>
                     @Html.EditorFor(model => model.Note)
                 </td>
-               
             </tr>
             <tr>
                 <td style="width:100px; text-align:right;">

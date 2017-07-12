@@ -13,7 +13,7 @@ using Microsoft.Practices.Unity;
 
 namespace Apps.BLL
 {
-    public class SysModuleBLL : BaseBLL , ISysModuleBLL
+    public partial class SysModuleBLL : ISysModuleBLL
     {
         [Dependency]
         public ISysModuleRepository Rep { get; set; }
@@ -61,7 +61,7 @@ namespace Apps.BLL
                                               }).ToList();
             return modelList;
         }
-        public bool Create(ref ValidationErrors errors, SysModuleModel model)
+        public override bool Create(ref ValidationErrors errors, SysModuleModel model)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Apps.BLL
                 return false;
             }
         }
-        public bool Delete(ref ValidationErrors errors, string id)
+        public override bool Delete(ref ValidationErrors errors, string id)
         {
             try
             {
@@ -132,6 +132,7 @@ namespace Apps.BLL
                 return false;
             }
         }
+        /*
         public bool Edit(ref ValidationErrors errors, SysModuleModel model)
         {
             try
@@ -204,9 +205,12 @@ namespace Apps.BLL
         {
             return Rep.IsExist(id);
         }
+        */
+        /*
         public void Dispose()
         {
 
         }
+        */
     }
 }

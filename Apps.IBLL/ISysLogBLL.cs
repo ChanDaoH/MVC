@@ -8,7 +8,7 @@ using Apps.Common;
 
 namespace Apps.IBLL
 {
-    public interface ISysLogBLL
+    public partial interface ISysLogBLL
     {
         /// <summary>
         /// 获取列表
@@ -16,13 +16,13 @@ namespace Apps.IBLL
         /// <param name="pager"></param>
         /// <param name="queryStr"></param>
         /// <returns></returns>
-        List<SysLogModel> GetList(ref GridPager pager, string queryStr);
+    //    List<SysLogModel> GetList(ref GridPager pager, string queryStr);
         /// <summary>
         /// 根据id获取实体
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        SysLogModel GetById(string id);
+     //   SysLogModel GetById(string id);
         /// <summary>
         /// 创建
         /// </summary>
@@ -34,6 +34,6 @@ namespace Apps.IBLL
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        bool Delete(ref ValidationErrors errors,  string id);
+    //    bool Delete(ref ValidationErrors errors,  string id);
     }
 }

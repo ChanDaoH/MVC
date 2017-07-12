@@ -7,7 +7,7 @@
 
 const string inputFile = @"../../Apps.Models/DB.edmx";
 var textTransform = DynamicTextTransformation.Create(this);
-var code = new CodeGenerationTools(this);
+var code = new CodeGenerationTools(this); 
 var ef = new MetadataTools(this);
 var typeMapper = new TypeMapper(code, ef, textTransform.Errors);
 var	fileManager = EntityFrameworkTemplateFileManager.Create(this);
@@ -28,7 +28,7 @@ foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection)
 using Apps.Models;
 namespace Apps.IDAL
 {
-	public partial interface I<#=entity.Name#>Repository : ICommonRepository<<#=entity.Name #>>
+	public partial interface I<#=entity.Name#>Repository : ICommonRepository<<#=entity.Name#>>
 	{
 
 	}

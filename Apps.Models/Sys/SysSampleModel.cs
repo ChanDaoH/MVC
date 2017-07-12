@@ -3,8 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 namespace Apps.Models.Sys
 {
-    public class SysSampleModel
+    public partial class SysSampleModel
     {
+        /*
         [Display(Name = "ID")]
         public string Id { get; set; }
 
@@ -23,12 +24,14 @@ namespace Apps.Models.Sys
         [Display(Name = "照片")]
         public string Photo { get; set; }
 
-
+        */
+        //[Required(ErrorMessage = "不能为空")]
         [Display(Name = "简介")]
-        public string Note { get; set; }
-
+        public override string Note { get; set; }
+        /*
         [Display(Name = "创建时间")]
         public DateTime? CreateTime { get; set; }
+        */
 
     }
 }

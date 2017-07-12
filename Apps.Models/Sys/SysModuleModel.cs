@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Apps.Models.Sys
 {
-    public class SysModuleModel
+    public partial class SysModuleModel
     {
+        /*
         [Display(Name = "ID")]
         public string Id { get; set; }
         [Display(Name = "名称")]
@@ -34,6 +35,8 @@ namespace Apps.Models.Sys
         public DateTime? CreateTime { get; set; }
         [Display(Name = "是否最后一项")]
         public bool IsLast { get; set; }
+        public byte[] Version { get; set; }
+        */
 
         public string state { get; set; }//treegrid
 
