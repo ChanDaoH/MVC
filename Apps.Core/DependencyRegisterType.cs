@@ -8,6 +8,11 @@ using Apps.IBLL;
 using Apps.IDAL;
 using Microsoft.Practices.Unity;
 
+using Apps.MIS.IBLL;
+using Apps.MIS.BLL;
+using Apps.MIS.IDAL;
+using Apps.MIS.DAL;
+
 namespace Apps.Core
 {
     public class DependencyRegisterType
@@ -44,6 +49,12 @@ namespace Apps.Core
             container.RegisterType<ISysRoleRepository, SysRoleRepository>();
 
             container.RegisterType<ISysRightBLL, SysRightBLL>();
+
+            container.RegisterType<IMIS_ArticleBLL, MIS_ArticleBLL>();
+            container.RegisterType<IMIS_ArticleRepository, MIS_ArticleRepository>();
+
+            container.RegisterType<IMIS_Article_CategoryBLL, MIS_Article_CategoryBLL>();
+            container.RegisterType<IMIS_Article_CategoryRepository, MIS_Article_CategoryRepository>();
         }
     }
 }

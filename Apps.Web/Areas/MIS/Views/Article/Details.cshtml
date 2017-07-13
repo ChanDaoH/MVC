@@ -1,0 +1,116 @@
+﻿@using Apps.Models.Sys;
+
+@model Apps.Models.Sys.MIS_ArticleModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+    List<PermModel> perm = (List<PermModel>)ViewBag.Perm;
+    if (perm == null)
+    {
+        perm = new List<PermModel>();
+    }
+}
+
+<table>
+    <tbody>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.ChannelId)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.ChannelId)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.CategoryId)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.CategoryId)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.Title)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.Title)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.ImgUrl)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.ImgUrl)：
+            </td>
+               
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.BodyContent)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.BodyContent)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.Sort)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.Sort)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.Click)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.Click)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.CheckFlag)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.CheckFlag)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.Checker)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.Checker)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.CheckDateTime)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.CheckDateTime)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.Creater)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.Creater)
+            </td>
+        </tr>
+        <tr>
+            <td style="width:100px; text-align:right;">
+                @Html.LabelFor(model => model.CreateTime)：
+            </td>
+            <td style="width:310px">
+                @Html.DisplayFor(model => model.CreateTime)
+            </td>
+        </tr>
+    </tbody>
+</table>
+

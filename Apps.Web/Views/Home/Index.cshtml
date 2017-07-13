@@ -29,8 +29,6 @@
                 } else {
                     $.each(data, function (i, e) {
                         var id = e.id;
-                        var ce = e.iconCls;
-                        debugger;
                         $("#RightTreeAccordion").accordion('add', {
                             title: e.text,
                             content: "<ul id='tree" + id + "'></ul>",

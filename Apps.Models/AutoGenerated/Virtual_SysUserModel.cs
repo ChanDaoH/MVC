@@ -34,8 +34,8 @@ namespace Apps.Models.Sys
 		public virtual string CreatePerson { get; set; }
 		public virtual string Sex { get; set; }
 		public virtual Nullable<System.DateTime> Birthday { get; set; }
-		public virtual string Marital { get; set; }
 		public virtual Nullable<System.DateTime> JoinDate { get; set; }
+		public virtual string Marital { get; set; }
 		public virtual string Political { get; set; }
 		public virtual string Nationality { get; set; }
 		public virtual string Native { get; set; }
