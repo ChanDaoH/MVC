@@ -54,5 +54,27 @@ namespace Apps.Web.Controllers
             }
             
         }
+        public JsonResult GetTreeByEasyui(string id)
+        {
+            if (Session["Account"] != null)
+            {
+                AccountModel account = Session["Account"] as AccountModel;
+                List<SysModule> modelList = homeBLL.GetMenuByPersonId(account.Id, id);
+                int i = 2;
+                var json = (from r in modelList
+                            select new  {
+                                id = r.Id,
+                                text = r.Name,
+                                state = r.IsLast?"open":"closed",
+                                attributes = r.Url,
+                                iconCls = "pic_"+(i++).ToString()
+                            }).ToArray();
+                return Json(json, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("0", JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

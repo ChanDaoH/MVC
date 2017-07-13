@@ -417,6 +417,7 @@
     <Content Include="Content\tree\css\images\tree\leaf.gif" />
     <Content Include="Content\tree\css\images\tree\loading.gif" />
     <Content Include="Content\tree\css\tree.css" />
+    <Content Include="treeicon.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
