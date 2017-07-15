@@ -27,7 +27,7 @@ namespace Apps.BLL
 		[Dependency]
         public ISysSampleRepository m_Rep { get; set; }
 
-	//	public DBContainer db = new DBContainer();
+		public DBContainer db = new DBContainer();
         /// <summary>
         /// 获取列表
         /// </summary>
@@ -41,12 +41,12 @@ namespace Apps.BLL
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-										a => a.Id.Contains(queryStr)
-															|| a.Name.Contains(queryStr)
+										a => (a.Id != null && a.Id.Contains(queryStr))
+															|| (a.Name != null && a.Name.Contains(queryStr))
 														
 														
-														|| a.Photo.Contains(queryStr)
-														|| a.Note.Contains(queryStr)
+														|| (a.Photo != null && a.Photo.Contains(queryStr))
+														|| (a.Note != null && a.Note.Contains(queryStr))
 														
 								);
             }
@@ -157,7 +157,6 @@ namespace Apps.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new SysSample();
                 					entity.Id = model.Id;
                     					entity.Name = model.Name;
                     					entity.Age = model.Age;

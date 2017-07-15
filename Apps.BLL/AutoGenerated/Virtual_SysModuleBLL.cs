@@ -41,16 +41,16 @@ namespace Apps.BLL
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-										a => a.Id.Contains(queryStr)
-															|| a.Name.Contains(queryStr)
-														|| a.EnglishName.Contains(queryStr)
-														|| a.ParentId.Contains(queryStr)
-														|| a.Url.Contains(queryStr)
-														|| a.Iconic.Contains(queryStr)
+										a => (a.Id != null && a.Id.Contains(queryStr))
+															|| (a.Name != null && a.Name.Contains(queryStr))
+														|| (a.EnglishName != null && a.EnglishName.Contains(queryStr))
+														|| (a.ParentId != null && a.ParentId.Contains(queryStr))
+														|| (a.Url != null && a.Url.Contains(queryStr))
+														|| (a.Iconic != null && a.Iconic.Contains(queryStr))
 														
-														|| a.Remark.Contains(queryStr)
+														|| (a.Remark != null && a.Remark.Contains(queryStr))
 														
-														|| a.CreatePerson.Contains(queryStr)
+														|| (a.CreatePerson != null && a.CreatePerson.Contains(queryStr))
 														
 														
 														
@@ -175,7 +175,6 @@ namespace Apps.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new SysModule();
                 					entity.Id = model.Id;
                     					entity.Name = model.Name;
                     					entity.EnglishName = model.EnglishName;

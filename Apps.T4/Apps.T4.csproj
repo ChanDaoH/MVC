@@ -42,16 +42,59 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BLL\" />
-    <Folder Include="DAL\" />
-    <Folder Include="IBLL\" />
-    <Folder Include="IDAL\" />
-    <Folder Include="Model\" />
-    <Folder Include="View\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="DbHelper.ttinclude" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controller\CommonController.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CommonController.txt</LastGenOutput>
+    </Content>
+    <Content Include="Controller\CommonController.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CommonController.tt</DependentUpon>
+    </Content>
+    <Content Include="View\Create.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Create.txt</LastGenOutput>
+    </Content>
+    <Content Include="View\Create.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.tt</DependentUpon>
+    </Content>
+    <Content Include="View\Details.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Details.txt</LastGenOutput>
+    </Content>
+    <Content Include="View\Details.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Details.tt</DependentUpon>
+    </Content>
+    <Content Include="View\Edit.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Edit.txt</LastGenOutput>
+    </Content>
+    <Content Include="View\Edit.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Edit.tt</DependentUpon>
+    </Content>
+    <Content Include="View\Index.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Index.txt</LastGenOutput>
+    </Content>
+    <Content Include="View\Index.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Index.tt</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

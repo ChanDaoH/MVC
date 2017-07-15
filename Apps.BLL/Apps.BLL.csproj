@@ -151,6 +151,10 @@
       <Project>{f1234878-591c-4114-8f97-d106c716fcbf}</Project>
       <Name>Apps.IDAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Apps.MIS.IDAL\Apps.MIS.IDAL.csproj">
+      <Project>{ea906924-bf1a-46fe-b579-b5c4269661f8}</Project>
+      <Name>Apps.MIS.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Apps.Models\Apps.Models.csproj">
       <Project>{3e84a97e-df41-4496-9dff-c650595e23d8}</Project>
       <Name>Apps.Models</Name>

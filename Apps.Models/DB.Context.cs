@@ -36,8 +36,8 @@ namespace Apps.Models
         public virtual DbSet<SysRole> SysRole { get; set; }
         public virtual DbSet<SysUser> SysUser { get; set; }
         public virtual DbSet<SysModule> SysModule { get; set; }
-        public virtual DbSet<MIS_Article> MIS_Article { get; set; }
         public virtual DbSet<MIS_Article_Category> MIS_Article_Category { get; set; }
+        public virtual DbSet<MIS_Article> MIS_Article { get; set; }
     
         public virtual ObjectResult<P_Sys_GetRightOperate2_Result> P_Sys_GetRightOperate2(string userId, string url)
         {

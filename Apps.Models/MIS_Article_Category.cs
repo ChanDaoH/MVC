@@ -17,8 +17,8 @@ namespace Apps.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MIS_Article_Category()
         {
-            this.MIS_Article = new HashSet<MIS_Article>();
             this.MIS_Article_Category1 = new HashSet<MIS_Article_Category>();
+            this.MIS_Article = new HashSet<MIS_Article>();
         }
     
         public string Id { get; set; }
@@ -32,9 +32,9 @@ namespace Apps.Models
         public bool Enable { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MIS_Article> MIS_Article { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MIS_Article_Category> MIS_Article_Category1 { get; set; }
         public virtual MIS_Article_Category MIS_Article_Category2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MIS_Article> MIS_Article { get; set; }
     }
 }

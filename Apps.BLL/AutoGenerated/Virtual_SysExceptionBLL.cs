@@ -41,13 +41,13 @@ namespace Apps.BLL
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-										a => a.Id.Contains(queryStr)
-															|| a.HelpLink.Contains(queryStr)
-														|| a.Message.Contains(queryStr)
-														|| a.Source.Contains(queryStr)
-														|| a.StackTrace.Contains(queryStr)
-														|| a.TargetSite.Contains(queryStr)
-														|| a.Data.Contains(queryStr)
+										a => (a.Id != null && a.Id.Contains(queryStr))
+															|| (a.HelpLink != null && a.HelpLink.Contains(queryStr))
+														|| (a.Message != null && a.Message.Contains(queryStr))
+														|| (a.Source != null && a.Source.Contains(queryStr))
+														|| (a.StackTrace != null && a.StackTrace.Contains(queryStr))
+														|| (a.TargetSite != null && a.TargetSite.Contains(queryStr))
+														|| (a.Data != null && a.Data.Contains(queryStr))
 														
 								);
             }
@@ -160,7 +160,6 @@ namespace Apps.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new SysException();
                 					entity.Id = model.Id;
                     					entity.HelpLink = model.HelpLink;
                     					entity.Message = model.Message;

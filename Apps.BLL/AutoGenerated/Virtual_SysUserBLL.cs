@@ -41,39 +41,39 @@ namespace Apps.BLL
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-										a => a.Id.Contains(queryStr)
-															|| a.UserName.Contains(queryStr)
-														|| a.Password.Contains(queryStr)
-														|| a.TrueName.Contains(queryStr)
-														|| a.Card.Contains(queryStr)
-														|| a.MobileNumber.Contains(queryStr)
-														|| a.PhoneNumber.Contains(queryStr)
-														|| a.QQ.Contains(queryStr)
-														|| a.EmailAddress.Contains(queryStr)
-														|| a.OtherContact.Contains(queryStr)
-														|| a.Province.Contains(queryStr)
-														|| a.City.Contains(queryStr)
-														|| a.Village.Contains(queryStr)
-														|| a.Address.Contains(queryStr)
+										a => (a.Id != null && a.Id.Contains(queryStr))
+															|| (a.UserName != null && a.UserName.Contains(queryStr))
+														|| (a.Password != null && a.Password.Contains(queryStr))
+														|| (a.TrueName != null && a.TrueName.Contains(queryStr))
+														|| (a.Card != null && a.Card.Contains(queryStr))
+														|| (a.MobileNumber != null && a.MobileNumber.Contains(queryStr))
+														|| (a.PhoneNumber != null && a.PhoneNumber.Contains(queryStr))
+														|| (a.QQ != null && a.QQ.Contains(queryStr))
+														|| (a.EmailAddress != null && a.EmailAddress.Contains(queryStr))
+														|| (a.OtherContact != null && a.OtherContact.Contains(queryStr))
+														|| (a.Province != null && a.Province.Contains(queryStr))
+														|| (a.City != null && a.City.Contains(queryStr))
+														|| (a.Village != null && a.Village.Contains(queryStr))
+														|| (a.Address != null && a.Address.Contains(queryStr))
 														
 														
-														|| a.CreatePerson.Contains(queryStr)
-														|| a.Sex.Contains(queryStr)
+														|| (a.CreatePerson != null && a.CreatePerson.Contains(queryStr))
+														|| (a.Sex != null && a.Sex.Contains(queryStr))
 														
 														
-														|| a.Marital.Contains(queryStr)
-														|| a.Political.Contains(queryStr)
-														|| a.Nationality.Contains(queryStr)
-														|| a.Native.Contains(queryStr)
-														|| a.School.Contains(queryStr)
-														|| a.Professional.Contains(queryStr)
-														|| a.Degree.Contains(queryStr)
-														|| a.DepId.Contains(queryStr)
-														|| a.PosId.Contains(queryStr)
-														|| a.Expertise.Contains(queryStr)
-														|| a.JobState.Contains(queryStr)
-														|| a.Photo.Contains(queryStr)
-														|| a.Attach.Contains(queryStr)
+														|| (a.Marital != null && a.Marital.Contains(queryStr))
+														|| (a.Political != null && a.Political.Contains(queryStr))
+														|| (a.Nationality != null && a.Nationality.Contains(queryStr))
+														|| (a.Native != null && a.Native.Contains(queryStr))
+														|| (a.School != null && a.School.Contains(queryStr))
+														|| (a.Professional != null && a.Professional.Contains(queryStr))
+														|| (a.Degree != null && a.Degree.Contains(queryStr))
+														|| (a.DepId != null && a.DepId.Contains(queryStr))
+														|| (a.PosId != null && a.PosId.Contains(queryStr))
+														|| (a.Expertise != null && a.Expertise.Contains(queryStr))
+														|| (a.JobState != null && a.JobState.Contains(queryStr))
+														|| (a.Photo != null && a.Photo.Contains(queryStr))
+														|| (a.Attach != null && a.Attach.Contains(queryStr))
 								);
             }
             else
@@ -235,7 +235,6 @@ namespace Apps.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new SysUser();
                 					entity.Id = model.Id;
                     					entity.UserName = model.UserName;
                     					entity.Password = model.Password;

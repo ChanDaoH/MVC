@@ -3,7 +3,7 @@
  output extension=".cs"#>
 <#@ include file="../../Apps.Models/Common.ttinclude"#>
  <#
-
+	const string usingName = "Sys";
 const string inputFile = @"../../Apps.Models/DB.edmx";
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this); 
@@ -22,6 +22,8 @@ WriteHeader(codeStringGenerator, fileManager);
 
 foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
 {
+	if (entity.Name.StartsWith(usingName))
+    {
     fileManager.StartNewFile("Virtual_"+entity.Name + "BLL.cs");
 	var simpleProperties = typeMapper.GetSimpleProperties(entity);
 #>
@@ -65,7 +67,7 @@ namespace Apps.BLL
 					if (i == 0)
 					{
 						#>
-						<#= codeStringGenerator.Property(edmProperty).ToString().IndexOf("string")>0?"a => a."+edmProperty+".Contains(queryStr)":""#>
+						<#= codeStringGenerator.Property(edmProperty).ToString().IndexOf("string")>0?"a => (a."+edmProperty+" != null && a."+edmProperty+".Contains(queryStr))":""#>
 						<#
 						if(codeStringGenerator.Property(edmProperty).ToString().IndexOf("string")>0)
 						{
@@ -74,7 +76,7 @@ namespace Apps.BLL
 					}
 					else if(i==1)
 					{#>
-						<#=codeStringGenerator.Property(edmProperty).ToString().IndexOf("string")>0?"|| a."+edmProperty+".Contains(queryStr)":""#>
+						<#=codeStringGenerator.Property(edmProperty).ToString().IndexOf("string")>0?"|| (a."+edmProperty+" != null && a."+edmProperty+".Contains(queryStr))":""#>
 					<#
 					}
                 
@@ -194,7 +196,6 @@ namespace Apps.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new <#=entity.Name#>();
                 <#
 				if(simpleProperties.Any())
                 {
@@ -266,7 +267,7 @@ namespace Apps.BLL
 	}
 <#
 	EndNamespace(code);
-
+    }
 }
 
 fileManager.Process();

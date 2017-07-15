@@ -23,7 +23,7 @@ namespace Apps.Models.Sys
 		public virtual string BodyContent { get; set; }
 		public virtual Nullable<int> Sort { get; set; }
 		public virtual Nullable<int> Click { get; set; }
-		public virtual int CheckFlag { get; set; }
+		public virtual bool CheckFlag { get; set; }
 		public virtual string Checker { get; set; }
 		public virtual Nullable<System.DateTime> CheckDateTime { get; set; }
 		public virtual string Creater { get; set; }

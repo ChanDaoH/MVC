@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+}
+
+
+<style>
+    .bar {
+        border: 1px solid #000;
+        width: 300px;
+        height: 20px;
+        background: #fff;
+    }
+
+    .current-bar {
+        width: 1%;
+        height: 100%;
+        background: green;
+    }
+</style>
+
+
+
+
+
+<form>
+    <input type="text" name="title" id="title" value="0" />
+    <input type="file" name="file" id="file" value="" />
+    <input type="button" id="btnUpload" value="提交" />
+    <div id="current-bar" class="easyui-progressbar" data-options="value:0" style="width:400px;"></div>
+</form>
+
+<script type="text/javascript">
+    var bar = document.getElementById("current-bar");
+    $("#btnUpload").click(function () {
+        var file = document.getElementById("file").files[0];
+        if (file == null) {
+            alert("请选择上传文件");
+            return false;
+        }
+
+        var formData = new FormData();
+        formData.append("file", file);
+        //formData.append("title", title);
+        //ajax开始，new xhr对象
+        var request;
+        if (window.XMLHttpRequest) {
+            request = new XMLHttpRequest();
+        }
+        else {
+            request = new ActiveXObject('Microsoft.XMLHTTP');
+        }
+        //progress事件
+        request.upload.addEventListener("progress", uploadProgress, false);
+
+        //开启定时器询问服务器已上传的字节
+        //var timer = setInterval(checkProgress, 500);
+
+        //请求发送后处理函数
+        request.onreadystatechange = function () {
+            if (request.readyState === 4) {
+                var response = JSON.parse(request.response);
+                if (request.status === 200) {
+                    //成功
+                   // clearInterval(timer);
+                    $("#current-bar").progressbar('setValue', response.progress);
+                }
+                else {
+                    alert(request.status);
+                }
+            }
+            else {
+                //请求还在继续
+            }
+        }
+        request.open('POST', '/TEST/File/UploadFile', true);
+        request.send(formData);
+    });
+
+
+    ///查询服务器的
+    function checkProgress() {
+        var xhr;
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest();
+        }
+        else {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xhr.onreadystatechange = function () {
+            var bar = document.getElementById("current-bar");
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        //已经全部上传
+                        $("#current-bar").progressbar('setValue', response.progress);
+                    }
+                    else {
+                        //还没全部上传
+                        $("#current-bar").progressbar('setValue', response.progress);
+                    }
+                }
+            } else {
+
+            }
+        }
+        xhr.open("GET", "/TEST/File/GetProgress");
+        xhr.send();
+    }
+
+    function uploadProgress(evt) {
+        if (evt.lengthComputable) {
+            //evt.loaded：文件上传的大小   evt.total：文件总的大小                      
+            var percentComplete = Math.round((evt.loaded) * 100 / evt.total);
+            //加载进度条，同时显示信息            
+            var bar = document.getElementById("current-bar");
+            $("#current-bar").progressbar('setValue', percentComplete);
+        }
+    }
+</script>

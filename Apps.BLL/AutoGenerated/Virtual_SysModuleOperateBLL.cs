@@ -41,10 +41,10 @@ namespace Apps.BLL
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-										a => a.Id.Contains(queryStr)
-															|| a.Name.Contains(queryStr)
-														|| a.KeyCode.Contains(queryStr)
-														|| a.ModuleId.Contains(queryStr)
+										a => (a.Id != null && a.Id.Contains(queryStr))
+															|| (a.Name != null && a.Name.Contains(queryStr))
+														|| (a.KeyCode != null && a.KeyCode.Contains(queryStr))
+														|| (a.ModuleId != null && a.ModuleId.Contains(queryStr))
 														
 														
 								);
@@ -154,7 +154,6 @@ namespace Apps.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new SysModuleOperate();
                 					entity.Id = model.Id;
                     					entity.Name = model.Name;
                     					entity.KeyCode = model.KeyCode;
