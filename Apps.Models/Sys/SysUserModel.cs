@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Apps.Models.Sys
 {
-    public class SysUserModel
+    public partial class SysUserModel
     {
+        /*
         [Display(Name = "Id")]
         public string Id { get; set; }
 
@@ -107,8 +108,14 @@ namespace Apps.Models.Sys
 
         [Display(Name = "附件")]
         public string Attach { get; set; }
+        */
 
         [Display(Name ="拥有角色")]
         public List<string> Roles { get; set; }
+
+        [Display(Name = "是否启用")]
+        public bool _state { get; set; }
+
+
     }
 }

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Apps.Models.Sys
 {
-    public class SysRoleModel
+    public partial class SysRoleModel
     {
+        /*
         public string Id { get; set; }
 
         [Display(Name = "角色名称")]
@@ -20,6 +21,7 @@ namespace Apps.Models.Sys
         public DateTime CreateTime { get; set; }
         [Display(Name = "创建人")]
         public string CreatePerson { get; set; }
+        */
         [Display(Name = "拥有的用户")]
         public List<string> UserName { get; set; }//拥有的用户
 

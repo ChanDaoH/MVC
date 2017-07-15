@@ -18,6 +18,8 @@ namespace Apps.Models
         public SysUser()
         {
             this.SysRole = new HashSet<SysRole>();
+            this.MIS_Article = new HashSet<MIS_Article>();
+            this.MIS_Article1 = new HashSet<MIS_Article>();
         }
     
         public string Id { get; set; }
@@ -56,5 +58,9 @@ namespace Apps.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SysRole> SysRole { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MIS_Article> MIS_Article { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MIS_Article> MIS_Article1 { get; set; }
     }
 }

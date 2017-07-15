@@ -7,11 +7,69 @@
     <script src="@Url.Content("~/Scripts/jquery.min.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.easyui.min.js")" type="text/javascript"></script>
     <script src="~/Scripts/jquery.tree.js"></script>
+    
     <link href="~/Content/tree/css/tree.css" rel="stylesheet" />
 
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/blue/css")
     @Scripts.Render("~/bundles/home")
+    <link href="~/treeicon.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(function () {
+            $("#RightTreeAccordion").accordion({
+                fit: true,
+                border: false,
+                animate: false
+            });
+
+            $.post("/Home/GetTreeByEasyui", { "id": '0' }, function (data) {
+
+                if (data == "0") {
+                    window.location = "/Account";
+                } else {
+                    $.each(data, function (i, e) {
+                        var id = e.id;
+                        $("#RightTreeAccordion").accordion('add', {
+                            title: e.text,
+                            content: "<ul id='tree" + id + "'></ul>",
+                            iconCls: e.iconCls
+                        });
+                        $.parser.parse();
+                        $.post("/Home/GetTreeByEasyui?id=" + id, function (data) {
+                            if (data != "0") {
+                                $("#tree" + id).tree({
+                                    data: data,
+                                    url: "/GetTreeByEasyui",
+                                    loadFilter: function (data, parent) {
+                                        return data;
+                                    },
+                                    onBeforeExpand:function(node,param){
+                                        $("#tree" + id).tree('options').url = "/Home/GetTreeByEasyui?id=" + node.id;
+                                    },
+                                    onClick: function (node) {
+                                        if (node.state == "closed") {
+                                            $(this).tree('expand', node.target);
+                                        } else if (node.state == "open") {
+                                            $(this).tree('collapse', node.target);
+                                        } else {
+                                            var tabTitle = node.text;
+                                            var url = '../../' + node.attributes;
+                                            addTab(tabTitle, url, node.iconCls);
+                                        }
+                                    }
+                                });
+                            }
+                        }, 'json');
+                    });
+                }
+
+            }, 'json');
+        })
+
+
+
+    </script>
+   
 </head>
 <body class="easyui-layout">
     <div id="OverTimeLogin" class="easyui-dialog" data-options="closed:true,modal:true">
@@ -29,8 +87,7 @@
         </div>
     </div>
     <div data-options="region:'west',split:true,title:'菜单列表'" style="width: 200px; height:100%; padding-top: 2px; background-color:#fff; overflow:auto">
-        <div id="RightTree" style=" background-color:#fff;">
-            <div class="panel-loading">加载中...</div>
+        <div id="RightTreeAccordion" class="easyui-accordion" >
         </div>
     </div>
     <div data-options="region:'south',border:false" style="height: 20px;">

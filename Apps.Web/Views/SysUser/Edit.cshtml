@@ -53,6 +53,7 @@
     @Html.HiddenFor( model => model.CreatePerson)
     @Html.HiddenFor(model => model.DepId)
     @Html.HiddenFor(model => model.PosId)
+    @Html.HiddenFor(model => model.Password)
     <table class="fromEditTable setTextWidth300">
         <tbody>
             <tr>
@@ -61,14 +62,6 @@
                 </td>
                 <td style="width:310px">
                     @Html.EditorFor(model => model.UserName)
-                </td>
-            </tr>
-            <tr>
-                <td style="width:100px; text-align:right;">
-                    @Html.LabelFor(model => model.Password)：
-                </td>
-                <td style="width:310px">
-                    @Html.EditorFor(model => model.Password)
                 </td>
             </tr>
             <tr>
@@ -164,7 +157,7 @@
                     @Html.LabelFor(model => model.State)：
                 </td>
                 <td style="width:310px">
-                    @Html.CheckBoxFor(model => model.State, new { @checked = true })
+                    @Html.CheckBoxFor(model => model._state, new { @checked = true })
                 </td>
             </tr>
             <tr>

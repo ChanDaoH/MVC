@@ -10,9 +10,9 @@ namespace Apps.Models.Sys
     /// <summary>
     /// 异常处理类
     /// </summary>
-    public class SysExceptionModel
+    public partial class SysExceptionModel
     {
-
+        /*
         [Display(Name = "ID")]
         public string Id { get; set; }
 
@@ -36,5 +36,6 @@ namespace Apps.Models.Sys
 
         [Display(Name = "发生时间")]
         public DateTime? CreateTime { get; set; }
+        */
     }
 }

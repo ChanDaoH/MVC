@@ -7,12 +7,8 @@ using Apps.Models;
 
 namespace Apps.IDAL
 {
-    public interface ISysModuleOperateRepository
+    public partial interface ISysModuleOperateRepository
     {
-        IQueryable<SysModuleOperate> GetList(DBContainer db);
-        int Create(SysModuleOperate entity);
-        int Delete(string id);
-        SysModuleOperate GetById(string id);
-        bool IsExist(string id);
+        
     }
 }

@@ -13,14 +13,15 @@ using Apps.BLL.Core;
 
 namespace Apps.BLL
 {
-    public class SysLogBLL:ISysLogBLL
+    public partial class SysLogBLL:ISysLogBLL
     {
-        DBContainer db = new DBContainer();
+       // DBContainer db = new DBContainer();
+       /*
         [Dependency]
         public ISysLogRepository Rep { get; set; }
         public List<SysLogModel> GetList(ref GridPager pager, string queryStr)
         {
-            IQueryable<SysLog> list =  Rep.GetList(db);
+            IQueryable<SysLog> list =  Rep.GetList();
             if ( !string.IsNullOrWhiteSpace(queryStr))
             {
                 list = list.Where(r => r.Message.Contains(queryStr) || r.Module.Contains(queryStr));
@@ -96,6 +97,7 @@ namespace Apps.BLL
             }
         }
         */
+        /*
         public bool Delete(ref ValidationErrors errors, string id)
         {
             try
@@ -126,6 +128,6 @@ namespace Apps.BLL
                 ExceptionHandler.WriteException(ex);
                 return false;
             }
-        }
+        }*/
     }
 }

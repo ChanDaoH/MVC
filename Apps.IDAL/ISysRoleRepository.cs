@@ -8,14 +8,8 @@ using Apps.Models.Sys;
 
 namespace Apps.IDAL
 {
-    public interface ISysRoleRepository
+    public partial interface ISysRoleRepository
     {
-        IQueryable<SysRole> GetList(DBContainer db);
-        int Create(SysRole entity);
-        int Delete(string id);
-        int Edit(SysRole entity);
-        SysRole GetById(string id);
-        bool IsExist(string id);
         List<RoleUserInfoModel> GetUserByRoleId(DBContainer db, string roleId);
         void UpdateSysRoleSysUser(string roleId, string[] userIds);
     }

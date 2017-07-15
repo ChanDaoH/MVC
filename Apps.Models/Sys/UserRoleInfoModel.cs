@@ -9,7 +9,7 @@ namespace Apps.Models.Sys
     /// <summary>
     /// 用户针对角色的拥有状态类
     /// </summary>
-    public class UserRoleInfoModel
+    public partial class UserRoleInfoModel
     {
         /// <summary>
         /// 角色Id

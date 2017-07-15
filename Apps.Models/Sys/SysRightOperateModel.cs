@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Apps.Models.Sys
 {
-    public class SysRightOperateModel
+    public partial class SysRightOperateModel
     {
+        /*
         public string Id { get; set; }
         public string RightId { get; set; }
         public string KeyCode { get; set; }
         public bool IsValid { get; set; }
+        */
     }
 }

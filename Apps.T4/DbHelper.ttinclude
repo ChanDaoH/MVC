@@ -1,0 +1,16 @@
+﻿<#@ IntelliSenseLanguage processor="tangibleT4Editor" language="C#" #>
+<#+ 
+  // Note: You can call this method from the outside of the template,
+  //       please add parameters as needed.	
+  // To include this templaate just drag this file on another editor
+  // then call this.Template_NewTemplate1_Render()
+  void Template_NewTemplate1_Render(/*string param1, string param2 */){			
+		#>
+		
+		// insert your template code here
+		Hello World!
+		
+		
+		<#+
+	}	
+#>

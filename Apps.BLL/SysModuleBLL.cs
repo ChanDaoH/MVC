@@ -13,13 +13,13 @@ using Microsoft.Practices.Unity;
 
 namespace Apps.BLL
 {
-    public class SysModuleBLL : BaseBLL , ISysModuleBLL
+    public partial class SysModuleBLL : ISysModuleBLL
     {
         [Dependency]
         public ISysModuleRepository Rep { get; set; }
         public List<SysModuleModel> GetList(string parentId)
         {
-            IQueryable<SysModule> queryData = Rep.GetList(db);
+            IQueryable<SysModule> queryData = Rep.GetList();
             queryData = queryData.Where(r => r.ParentId == parentId && r.Id != "0" ).OrderBy(r => r.Sort);
             List<SysModuleModel> modelList = (from r in queryData
                                               select new SysModuleModel()
@@ -61,7 +61,7 @@ namespace Apps.BLL
                                               }).ToList();
             return modelList;
         }
-        public bool Create(ref ValidationErrors errors, SysModuleModel model)
+        public override bool Create(ref ValidationErrors errors, SysModuleModel model)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace Apps.BLL
                     CreateTime = model.CreateTime,
                     IsLast = model.IsLast
                 };
-                if (Rep.Create(entity) == 1)
+                if (Rep.Create(entity))
                 {
                     //分配给角色
                     //
@@ -105,7 +105,7 @@ namespace Apps.BLL
                 return false;
             }
         }
-        public bool Delete(ref ValidationErrors errors, string id)
+        public override bool Delete(ref ValidationErrors errors, string id)
         {
             try
             {
@@ -132,6 +132,7 @@ namespace Apps.BLL
                 return false;
             }
         }
+        /*
         public bool Edit(ref ValidationErrors errors, SysModuleModel model)
         {
             try
@@ -157,7 +158,7 @@ namespace Apps.BLL
                     CreateTime = model.CreateTime,
                     IsLast = model.IsLast
                 };
-                if (Rep.Edit(entity) == 1)
+                if (Rep.Edit(entity))
                     return true;
                 else
                 {
@@ -204,9 +205,12 @@ namespace Apps.BLL
         {
             return Rep.IsExist(id);
         }
+        */
+        /*
         public void Dispose()
         {
 
         }
+        */
     }
 }

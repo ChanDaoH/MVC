@@ -8,15 +8,15 @@ using Apps.Common;
 
 namespace Apps.IBLL
 {
-    public interface ISysUserBLL
+    public partial interface ISysUserBLL
     {
         List<PermModel> GetPermission(string accountId, string controller);
-        List<SysUserModel> GetList(ref GridPager pager, string queryStr);
-        bool Create(ref ValidationErrors errors, SysUserModel model);
-        bool Delete(ref ValidationErrors errors, string id);
-        bool Edit(ref ValidationErrors errors, SysUserModel model);
-        SysUserModel GetById(string id);
-        bool IsExist(string id);
+        //List<SysUserModel> GetList(ref GridPager pager, string queryStr);
+        //bool Create(ref ValidationErrors errors, SysUserModel model);
+       // bool Delete(ref ValidationErrors errors, string id);
+        //bool Edit(ref ValidationErrors errors, SysUserModel model);
+       // SysUserModel GetById(string id);
+        //bool IsExist(string id);
         List<UserRoleInfoModel> GetRoleByUserId(ref GridPager pager,string id);
         bool UpdateSysRoleSysUser(ref ValidationErrors errors ,string userId, string[] roleIds);
     }

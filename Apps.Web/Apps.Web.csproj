@@ -159,6 +159,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\MIS\Controllers\ArticleController.cs" />
+    <Compile Include="Areas\MIS\MISAreaRegistration.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -417,6 +419,7 @@
     <Content Include="Content\tree\css\images\tree\leaf.gif" />
     <Content Include="Content\tree\css\images\tree\loading.gif" />
     <Content Include="Content\tree\css\tree.css" />
+    <Content Include="treeicon.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -510,6 +513,11 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Core\verify_code.ashx" />
+    <Content Include="Areas\MIS\Views\web.config" />
+    <Content Include="Areas\MIS\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\MIS\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\MIS\Views\Article\Index.cshtml" />
+    <Content Include="Areas\MIS\Views\Article\Details.cshtml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Content\Images\Logo.psd" />
     <Content Include="Content\Images\sunny\Logo.psd" />
@@ -565,6 +573,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\MIS\Models\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\easyui\demo\" />
   </ItemGroup>
@@ -604,6 +613,10 @@
     <ProjectReference Include="..\Apps.IDAL\Apps.IDAL.csproj">
       <Project>{f1234878-591c-4114-8f97-d106c716fcbf}</Project>
       <Name>Apps.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apps.MIS.IBLL\Apps.MIS.IBLL.csproj">
+      <Project>{441ffe4d-beb3-46fe-84c4-decf072f0a90}</Project>
+      <Name>Apps.MIS.IBLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Apps.Models\Apps.Models.csproj">
       <Project>{3e84a97e-df41-4496-9dff-c650595e23d8}</Project>

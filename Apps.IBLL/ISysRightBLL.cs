@@ -9,7 +9,7 @@ using Apps.Common;
 
 namespace Apps.IBLL
 {
-    public interface ISysRightBLL
+    public partial interface ISysRightBLL
     {
         bool UpdateRight(ValidationErrors errors, SysRightOperateModel model);
         List<RightModuleOperateModel> GetRightByRoleAndModule(string roleId, string moduleId);

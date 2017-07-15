@@ -23,7 +23,7 @@ namespace Apps.Web.Core
         public static void WriteServiceLog(string oper, string mes, string result, string type, string module)
         {
             SysLog entity = new SysLog();
-            SysLogRepository Rep = new SysLogRepository();
+            SysLogRepository Rep = new SysLogRepository(new DBContainer());
             entity.Id = ResultHelper.NewId;
             entity.Operator = oper;
             entity.Message = mes;

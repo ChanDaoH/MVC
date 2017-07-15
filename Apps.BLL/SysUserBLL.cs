@@ -13,30 +13,30 @@ using Apps.BLL.Core;
 
 namespace Apps.BLL
 {
-    public class SysUserBLL: BaseBLL, ISysUserBLL
+    public partial class SysUserBLL: ISysUserBLL
     {
         [Dependency]
         public ISysRightRepository Rep { get; set; }
 
-        [Dependency]
-        public ISysUserRepository m_Rep { get; set; }
+      //  [Dependency]
+      //  public ISysUserRepository m_Rep { get; set; }
 
         public List<PermModel> GetPermission(string accountId, string controller)
         {
             return Rep.GetPermission(accountId, controller);
         }
 
-        public List<SysUserModel> GetList(ref GridPager pager, string queryStr)
+        public override List<SysUserModel> GetList(ref GridPager pager, string queryStr)
         {
 
             IQueryable<SysUser> queryData = null;
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
-                queryData = m_Rep.GetList(db).Where(a => a.UserName.Contains(queryStr) || a.TrueName.Contains(queryStr));
+                queryData = m_Rep.GetList(a => a.UserName.Contains(queryStr) || a.TrueName.Contains(queryStr));
             }
             else
             {
-                queryData = m_Rep.GetList(db);
+                queryData = m_Rep.GetList();
             }
             pager.totalRows = queryData.Count();
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
@@ -82,12 +82,13 @@ namespace Apps.BLL
                                                 Photo = r.Photo,
                                                 Attach = r.Attach,
                                                 Roles = (from a in r.SysRole
-                                                         select a.Name).ToList()
+                                                         select a.Name).ToList()  ,  //重要
+                                                _state = (bool)r.State //添加字段
                                             }).ToList();
             return modelList;
         }
-
-        public bool Create(ref ValidationErrors errors, SysUserModel model)
+        
+        public override bool Create(ref ValidationErrors errors, SysUserModel model)
         {
             try
             {
@@ -112,7 +113,7 @@ namespace Apps.BLL
                 entity.City = model.City;
                 entity.Village = model.Village;
                 entity.Address = model.Address;
-                entity.State = model.State;
+                entity.State = model._state; //添加字段
                 entity.CreateTime = model.CreateTime;
                 entity.CreatePerson = model.CreatePerson;
                 entity.Sex = model.Sex;
@@ -131,7 +132,7 @@ namespace Apps.BLL
                 entity.JobState = model.JobState;
                 entity.Photo = model.Photo;
                 entity.Attach = model.Attach;
-                if (m_Rep.Create(entity) == 1)
+                if (m_Rep.Create(entity))
                 {
                     return true;
                 }
@@ -148,7 +149,7 @@ namespace Apps.BLL
                 return false;
             }
         }
-
+        /*
         public bool Delete(ref ValidationErrors errors, string id)
         {
             try
@@ -170,8 +171,9 @@ namespace Apps.BLL
                 return false;
             }
         }
+        */
 
-        public bool Edit(ref ValidationErrors errors, SysUserModel model)
+        public override bool Edit(ref ValidationErrors errors, SysUserModel model)
         {
             try
             {
@@ -183,7 +185,7 @@ namespace Apps.BLL
                 }
                 entity.Id = model.Id;
                 entity.UserName = model.UserName;
-                entity.Password = model.Password;
+                entity.Password = model.Password.MD5();
                 entity.TrueName = model.TrueName;
                 entity.Card = model.Card;
                 entity.MobileNumber = model.MobileNumber;
@@ -195,7 +197,7 @@ namespace Apps.BLL
                 entity.City = model.City;
                 entity.Village = model.Village;
                 entity.Address = model.Address;
-                entity.State = model.State;
+                entity.State = model._state;     //添加字段
                 entity.CreateTime = model.CreateTime;
                 entity.CreatePerson = model.CreatePerson;
                 entity.Sex = model.Sex;
@@ -215,7 +217,7 @@ namespace Apps.BLL
                 entity.Photo = model.Photo;
                 entity.Attach = model.Attach;
 
-                if (m_Rep.Edit(entity) == 1)
+                if (m_Rep.Edit(entity))
                 {
                     return true;
                 }
@@ -232,13 +234,13 @@ namespace Apps.BLL
                 return false;
             }
         }
-
+        /*
         public bool IsExist(string id)
         {
             return m_Rep.IsExist(id);
         }
-
-        public SysUserModel GetById(string id)
+        */
+        public override SysUserModel GetById(string id)
         {
             if (IsExist(id))
             {

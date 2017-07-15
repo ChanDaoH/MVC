@@ -13,15 +13,15 @@ using Microsoft.Practices.Unity;
 
 namespace Apps.BLL
 {
-    public class SysModuleOperateBLL:BaseBLL,ISysModuleOperateBLL
+    public partial class SysModuleOperateBLL:ISysModuleOperateBLL
     {
         [Dependency]
         public ISysModuleOperateRepository Rep { get; set; }
-        public List<SysModuleOperateModel> GetList(ref GridPager pager, string queryStr)
+        public override List<SysModuleOperateModel> GetList(ref GridPager pager, string queryStr)
         {
             IQueryable<SysModuleOperate> queryData = null;
-            queryData = Rep.GetList(db);
-            queryData = queryData.Where(entity => entity.ModuleId == queryStr);
+            queryData = Rep.GetList(entity => entity.ModuleId == queryStr);
+            //queryData = queryData.Where();
             pager.totalRows = queryData.Count();
             queryData = LinqHelper.SortingAndPaging(queryData, pager.sort, pager.order, pager.page, pager.rows);
             List<SysModuleOperateModel> modelList = (from r in queryData
@@ -36,7 +36,7 @@ namespace Apps.BLL
                                                       }).ToList();
             return modelList;
         }
-        public bool Create(ref ValidationErrors errors, SysModuleOperateModel model)
+        /*public bool Create(ref ValidationErrors errors, SysModuleOperateModel model)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace Apps.BLL
                     IsValid = model.IsValid,
                     Sort = model.Sort
                 };
-                if (Rep.Create(entity) == 1)
+                if (Rep.Create(entity) )
                     return true;
                 else
                 {
@@ -69,8 +69,8 @@ namespace Apps.BLL
                 ExceptionHandler.WriteException(ex);
                 return false;
             }
-        }
-        public bool Delete(ref ValidationErrors errors, string id)
+        }*/
+        public override bool Delete(ref ValidationErrors errors, string id)
         {
             try
             {
@@ -94,6 +94,7 @@ namespace Apps.BLL
             }
             
         }
+        /*
         public SysModuleOperateModel GetById(string id)
         {
             if ( IsExist(id) )
@@ -119,6 +120,6 @@ namespace Apps.BLL
         public bool IsExist(string id)
         {
             return Rep.IsExist(id);
-        }
+        }*/
     }
 }

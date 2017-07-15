@@ -1,0 +1,112 @@
+﻿@using Apps.Web.Core;
+@using Apps.Models.Sys;
+@using Apps.Common;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+    List<PermModel> perm = ViewBag.perm;
+    if (perm == null) {
+        perm = new List<PermModel>();
+    }
+}
+<script src="@Url.Content("~/Scripts/jquery.easyui.plus.js")" type="text/javascript"></script>
+
+
+
+<script type="text/javascript">
+/*
+    $(function () {
+        $("#bar").progressbar({
+            value: 60
+        });
+        var value = $("#bar").progressbar('getValue');
+        var ceshi = setInterval(function () {
+            if (value < 100) {
+                value += Math.floor(Math.random() * 10);
+                $('#bar').progressbar('setValue', value);
+            } else {
+                clearInterval(ceshi);
+                alert("完成");
+            }
+        }, 1000);
+        
+    });
+    */
+
+</script>
+
+<div id="modalwindow" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+<div class="mvctool">
+    <input id="txtQuery" type="text" class="searchText" />
+    @Html.ToolButton("btnQuery", "icon-search", "查询", true)
+    @Html.ToolButton("btnDetails", "icon-details", "详细", true)
+</div>
+<table id="List"></table>
+
+<script type="text/javascript">
+   $(function () {
+        $('#List').datagrid({
+            url: '@Url.Action("GetList")',
+            width: $(window).width() - 10,
+            method: 'post',
+            height: $(window).height() - 35,
+            fitColumns: true,
+            sortName: 'CreateTime',
+            sortOrder: 'desc',
+            idField: 'Id',
+            pageSize: 10,
+            pageList: [10, 20, 30, 40, 50],
+            pagination: true,
+            striped: true, //奇偶行是否区分
+            singleSelect: true,//单选模式
+            //rownumbers: true,//行号
+            columns: [[
+                { field: 'Id', title: '', width: 80, hidden: true },
+                { field: 'ChannelId', title: '频道', width: 80, sortable: true,hidden:true },
+                { field: 'CategoryId', title: '类别', width: 80, sortable: true },
+                { field: 'Title', title: '标题', width: 80, sortable: true },
+                { field: 'ImgUrl', title: '图片', width: 80, sortable: true },
+                { field: 'BodyContent', title: '内容', width: 80, sortable: true },
+                { field: 'Sort', title: '排序', width: 80, sortable: true, hidden: true },
+                { field: 'Click', title: '访问次数', width: 80, sortable: true },
+                { field: 'CheckFlag', title: '是否审核', width: 80, sortable: true, hidden: true},
+                { field: 'Checker', title: '审核人', width: 80, sortable: true, hidden: true},
+                { field: 'CheckDateTime', title: '审核时间', width: 80, sortable: true, hidden: true},
+                { field: 'Creater', title: '创建人', width: 80, sortable: true },
+                { field: 'CreateTime', title: '创建时间', width: 80, sortable: true }
+            ]]
+        });
+    });
+    //ifram 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+    function frameReturnByReload(flag) {
+        if (flag)
+            $("#List").datagrid('load');
+        else
+            $("#List").datagrid('reload');
+    }
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+    $(function () {
+        $("#btnDetails").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='98%' scrolling='yes' frameborder='0' src='/MIS/Article/Details?id=" + row.Id + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '详细', width: 500, height: 300, iconCls: 'icon-details' }).window('open');
+            } else { $.messageBox5s('提示', '@Suggestion.PlaseChooseToOperatingRecords'); }
+        });
+        $("#btnQuery").click(function () {
+            var queryStr = $("#txtQuery").val();
+            if (queryStr == null) {
+                queryStr = "%";
+            }
+            $('#List').datagrid({
+                url: '@Url.Action("GetList")?queryStr=' + encodeURI(queryStr)
+            });
+        });
+    });
+</script>

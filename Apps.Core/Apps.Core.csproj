@@ -82,6 +82,22 @@
       <Project>{f1234878-591c-4114-8f97-d106c716fcbf}</Project>
       <Name>Apps.IDAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Apps.MIS.BLL\Apps.MIS.BLL.csproj">
+      <Project>{410f3276-66dd-4310-a9f8-7c16d08647d7}</Project>
+      <Name>Apps.MIS.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apps.MIS.DAL\Apps.MIS.DAL.csproj">
+      <Project>{bee452db-5ec7-4021-b967-e28b27862a2d}</Project>
+      <Name>Apps.MIS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apps.MIS.IBLL\Apps.MIS.IBLL.csproj">
+      <Project>{441ffe4d-beb3-46fe-84c4-decf072f0a90}</Project>
+      <Name>Apps.MIS.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Apps.MIS.IDAL\Apps.MIS.IDAL.csproj">
+      <Project>{ea906924-bf1a-46fe-b579-b5c4269661f8}</Project>
+      <Name>Apps.MIS.IDAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Apps.Models\Apps.Models.csproj">
       <Project>{3e84a97e-df41-4496-9dff-c650595e23d8}</Project>
       <Name>Apps.Models</Name>
