@@ -1,0 +1,149 @@
+﻿@using Apps.Common;
+@using Apps.Models.Sys;
+@using Apps.Web.Core;
+
+@model Apps.Models.Sys.MIS_ArticleModel
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+
+    List<PermModel> perm = ViewBag.perm;
+    if (perm == null)
+    {
+        perm = new List<PermModel>();
+    }
+}
+
+<script type="text/javascript">
+    $(function () {
+        $('#btnSave').click(function () {
+            $.ajax({
+                url: '@Url.Action("Edit")',
+                type: 'post',
+                data: $('#EditForm').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.tag == 1) {
+                        window.parent.frameReturnByMes(data.message);
+                        window.parent.frameReturnByReload(true);
+                        window.parent.frameReturnByClose()
+                    } else {
+                        window.parent.frameReturnByMes(data.message);
+                    }
+                }
+            });
+        });
+        $("#btnReturn").click(function () {
+            window.parent.frameReturnByClose();
+        });
+
+    });
+
+</script>
+
+
+<div class="mvctool bgb">
+    @Html.ToolButton("btnSave", "icon-save", "保存", true, perm, "Save")
+    @Html.ToolButton("btnReturn", "icon-return", "返回", false)
+</div>
+
+@using (Html.BeginForm("Create", "MIS_Article", null, FormMethod.Post, new { id = "EditForm" }))
+{
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.ChannelId)
+    @Html.HiddenFor(model => model.CategoryId)
+    @Html.HiddenFor(model => model.Title)
+    @Html.HiddenFor(model => model.ImgUrl)
+    @Html.HiddenFor(model => model.BodyContent)
+    @Html.HiddenFor(model => model.Click)
+    @Html.HiddenFor(model => model.Creater)
+    @Html.HiddenFor(model => model.CreateTime)
+
+    <table class="fromEditTable setTextWidth300">
+        <tbody>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.ChannelId)：
+                </td>
+                <td style="width:310px">
+                    @Html.DisplayFor(model => model.ChannelId)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.CategoryId)：
+                </td>
+                <td style="width:310px">
+                    @Html.DisplayFor(model => model.CategoryId)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.Title)：
+                </td>
+                <td style="width:310px">
+                    @Html.DisplayFor(model => model.Title)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.ImgUrl)：
+                </td>
+                <td style="width:310px">
+                    @Html.DisplayFor(model => model.ImgUrl)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.BodyContent)：
+                </td>
+                <td style="width:310px">
+                    @Html.DisplayFor(model => model.BodyContent)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.Sort)：
+                </td>
+                <td style="width:310px">
+                    @Html.EditorFor(model => model.Sort)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.Click)：
+                </td>
+                <td style="width:310px">
+                    @Html.DisplayFor(model => model.Click)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.CheckFlag)：
+                </td>
+                <td style="width:310px">
+                    @Html.CheckBoxFor(model => model.CheckFlag,new { @checked = "checked"})
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.Creater)：
+                </td>
+                <td style="width:310px">
+                    @Html.DisplayFor(model => model.Creater)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px; text-align:right;">
+                    @Html.LabelFor(model => model.CreateTime)：
+                </td>
+                <td style="width:310px">
+                    @Html.DisplayFor(model => model.CreateTime)
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+}
+

@@ -175,7 +175,6 @@ namespace Apps.MIS.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new MIS_Article();
                 					entity.Id = model.Id;
                     					entity.ChannelId = model.ChannelId;
                     					entity.CategoryId = model.CategoryId;

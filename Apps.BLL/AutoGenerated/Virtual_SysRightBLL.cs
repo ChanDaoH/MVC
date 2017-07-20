@@ -41,9 +41,9 @@ namespace Apps.BLL
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-										a => a.Id.Contains(queryStr)
-															|| a.ModuleId.Contains(queryStr)
-														|| a.RoleId.Contains(queryStr)
+										a => (a.Id != null && a.Id.Contains(queryStr))
+															|| (a.ModuleId != null && a.ModuleId.Contains(queryStr))
+														|| (a.RoleId != null && a.RoleId.Contains(queryStr))
 														
 								);
             }
@@ -148,7 +148,6 @@ namespace Apps.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new SysRight();
                 					entity.Id = model.Id;
                     					entity.ModuleId = model.ModuleId;
                     					entity.RoleId = model.RoleId;

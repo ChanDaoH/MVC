@@ -196,7 +196,6 @@ namespace Apps.MIS.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new <#=entity.Name#>();
                 <#
 				if(simpleProperties.Any())
                 {

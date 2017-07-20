@@ -22,7 +22,7 @@ namespace Apps.Models
         public string BodyContent { get; set; }
         public Nullable<int> Sort { get; set; }
         public Nullable<int> Click { get; set; }
-        public int CheckFlag { get; set; }
+        public bool CheckFlag { get; set; }
         public string Checker { get; set; }
         public Nullable<System.DateTime> CheckDateTime { get; set; }
         public string Creater { get; set; }

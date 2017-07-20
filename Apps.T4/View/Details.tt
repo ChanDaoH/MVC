@@ -1,0 +1,59 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core.dll" #>
+<#@ assembly name="System.Data.dll" #>
+<#@ assembly name="System.Data.DataSetExtensions.dll" #>
+<#@ assembly name="System.Xml.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Data" #>
+<#@ import namespace="System.Data.SqlClient" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ include file="../DbHelper.ttinclude" #>
+<#@ output extension=".txt" #>
+
+@using Apps.Common;
+@using Apps.Models.Sys;
+
+@model Apps.Models.Sys.<#=config.TableName#>Model
+@{
+	ViewBag.Title = "Details";
+	Layout = "~/Views/Shared/_Index_LayoutEdit.cshtml";
+
+    List<PermModel> perm = ViewBag.perm;
+    if ( perm == null) {
+        perm = new List<PermModel>();
+    }
+
+}
+
+<table>
+	<tbody>
+		<#foreach(DbColumn column in DbHelper.GetDbColumns(config.ConnectionString,config.DbDatabase,config.TableName)){#><tr>
+			<td style="width:100px; text-align:right;">
+				@Html.LabelFor(model => model.<#=column.ColumnName#>)：
+			</td>
+			<td style="width:310px">
+				@Html.DisplayFor(model => model.<#=column.ColumnName#>)
+			</td>
+		</tr>
+		<#}#>
+
+	</tbody>
+</table>
+
+
+
+
+
+<#+
+    public class config
+    {
+        public static readonly string ConnectionString="Data Source=(local);Initial Catalog=AppsDB;User ID=sa;Password=huanggang1128;";
+        public static readonly string DbDatabase="AppsDB";
+        public static readonly string TableName="MIS_Article";
+        public static readonly string nameSpace="Apps.Sys";
+    }
+#>
+

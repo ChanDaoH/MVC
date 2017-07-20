@@ -41,12 +41,12 @@ namespace Apps.BLL
             if (!string.IsNullOrWhiteSpace(queryStr))
             {
                 queryData = m_Rep.GetList(
-										a => a.Id.Contains(queryStr)
-															|| a.Operator.Contains(queryStr)
-														|| a.Message.Contains(queryStr)
-														|| a.Result.Contains(queryStr)
-														|| a.Type.Contains(queryStr)
-														|| a.Module.Contains(queryStr)
+										a => (a.Id != null && a.Id.Contains(queryStr))
+															|| (a.Operator != null && a.Operator.Contains(queryStr))
+														|| (a.Message != null && a.Message.Contains(queryStr))
+														|| (a.Result != null && a.Result.Contains(queryStr))
+														|| (a.Type != null && a.Type.Contains(queryStr))
+														|| (a.Module != null && a.Module.Contains(queryStr))
 														
 								);
             }
@@ -157,7 +157,6 @@ namespace Apps.BLL
                     errors.add(Suggestion.Disable);
                     return false;
                 }
-				entity = new SysLog();
                 					entity.Id = model.Id;
                     					entity.Operator = model.Operator;
                     					entity.Message = model.Message;

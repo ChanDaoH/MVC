@@ -17,7 +17,7 @@
           <Property Name="BodyContent" Type="varchar" MaxLength="8000" />
           <Property Name="Sort" Type="int" />
           <Property Name="Click" Type="int" />
-          <Property Name="CheckFlag" Type="int" Nullable="false" />
+          <Property Name="CheckFlag" Type="bit" Nullable="false" />
           <Property Name="Checker" Type="varchar" MaxLength="50" />
           <Property Name="CheckDateTime" Type="datetime" />
           <Property Name="Creater" Type="varchar" MaxLength="50" />
@@ -477,8 +477,12 @@
           <FunctionImport Name="P_Sys_GetUserByRoleId" ReturnType="Collection(DB.P_Sys_GetUserByRoleId_Result)">
           <Parameter Name="roleId" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="MIS_Article" EntityType="DB.MIS_Article" />
           <EntitySet Name="MIS_Article_Category" EntityType="DB.MIS_Article_Category" />
+          <AssociationSet Name="FK_MIS_Article_Category_MIS_Article_Category" Association="DB.FK_MIS_Article_Category_MIS_Article_Category">
+            <End Role="MIS_Article_Category" EntitySet="MIS_Article_Category" />
+            <End Role="MIS_Article_Category1" EntitySet="MIS_Article_Category" />
+          </AssociationSet>
+          <EntitySet Name="MIS_Article" EntityType="DB.MIS_Article" />
           <AssociationSet Name="FK_MIS_Article_MIS_Article_Category" Association="DB.FK_MIS_Article_MIS_Article_Category">
             <End Role="MIS_Article_Category" EntitySet="MIS_Article_Category" />
             <End Role="MIS_Article" EntitySet="MIS_Article" />
@@ -490,10 +494,6 @@
           <AssociationSet Name="FK_MIS_Article_SysUser1" Association="DB.FK_MIS_Article_SysUser1">
             <End Role="SysUser" EntitySet="SysUser" />
             <End Role="MIS_Article" EntitySet="MIS_Article" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MIS_Article_Category_MIS_Article_Category" Association="DB.FK_MIS_Article_Category_MIS_Article_Category">
-            <End Role="MIS_Article_Category" EntitySet="MIS_Article_Category" />
-            <End Role="MIS_Article_Category1" EntitySet="MIS_Article_Category" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="SysSample">
@@ -619,7 +619,7 @@
           <NavigationProperty Name="SysRole" Relationship="DB.SysRoleSysUser" FromRole="SysUser" ToRole="SysRole" />
           <NavigationProperty Name="MIS_Article" Relationship="DB.FK_MIS_Article_SysUser" FromRole="SysUser" ToRole="MIS_Article" />
           <NavigationProperty Name="MIS_Article1" Relationship="DB.FK_MIS_Article_SysUser1" FromRole="SysUser" ToRole="MIS_Article" />
-        </EntityType>
+          </EntityType>
         <Association Name="FK_SysRight_SysRole">
           <End Type="DB.SysRole" Role="SysRole" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -771,27 +771,6 @@
           <Property Type="String" Name="Attach" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="Flag" Nullable="false" MaxLength="50" />
         </ComplexType>
-        <EntityType Name="MIS_Article">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ChannelId" Type="Int32" Nullable="false" />
-          <Property Name="CategoryId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ImgUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BodyContent" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Name="Sort" Type="Int32" />
-          <Property Name="Click" Type="Int32" />
-          <Property Name="CheckFlag" Type="Int32" Nullable="false" />
-          <Property Name="Checker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CheckDateTime" Type="DateTime" Precision="3" />
-          <Property Name="Creater" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreateTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="MIS_Article_Category" Relationship="DB.FK_MIS_Article_MIS_Article_Category" FromRole="MIS_Article" ToRole="MIS_Article_Category" />
-          <NavigationProperty Name="SysUser" Relationship="DB.FK_MIS_Article_SysUser" FromRole="MIS_Article" ToRole="SysUser" />
-          <NavigationProperty Name="SysUser1" Relationship="DB.FK_MIS_Article_SysUser1" FromRole="MIS_Article" ToRole="SysUser" />
-        </EntityType>
         <EntityType Name="MIS_Article_Category">
           <Key>
             <PropertyRef Name="Id" />
@@ -805,9 +784,42 @@
           <Property Name="BodyContent" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="CreateTime" Type="DateTime" Precision="3" />
           <Property Name="Enable" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="MIS_Article" Relationship="DB.FK_MIS_Article_MIS_Article_Category" FromRole="MIS_Article_Category" ToRole="MIS_Article" />
           <NavigationProperty Name="MIS_Article_Category1" Relationship="DB.FK_MIS_Article_Category_MIS_Article_Category" FromRole="MIS_Article_Category" ToRole="MIS_Article_Category1" />
           <NavigationProperty Name="MIS_Article_Category2" Relationship="DB.FK_MIS_Article_Category_MIS_Article_Category" FromRole="MIS_Article_Category1" ToRole="MIS_Article_Category" />
+          <NavigationProperty Name="MIS_Article" Relationship="DB.FK_MIS_Article_MIS_Article_Category" FromRole="MIS_Article_Category" ToRole="MIS_Article" />
+        </EntityType>
+        <Association Name="FK_MIS_Article_Category_MIS_Article_Category">
+          <End Type="DB.MIS_Article_Category" Role="MIS_Article_Category" Multiplicity="0..1" />
+          <End Type="DB.MIS_Article_Category" Role="MIS_Article_Category1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MIS_Article_Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MIS_Article_Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MIS_Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ChannelId" Type="Int32" Nullable="false" />
+          <Property Name="CategoryId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ImgUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BodyContent" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="Sort" Type="Int32" />
+          <Property Name="Click" Type="Int32" />
+          <Property Name="CheckFlag" Type="Boolean" Nullable="false" />
+          <Property Name="Checker" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CheckDateTime" Type="DateTime" Precision="3" />
+          <Property Name="Creater" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MIS_Article_Category" Relationship="DB.FK_MIS_Article_MIS_Article_Category" FromRole="MIS_Article" ToRole="MIS_Article_Category" />
+          <NavigationProperty Name="SysUser" Relationship="DB.FK_MIS_Article_SysUser" FromRole="MIS_Article" ToRole="SysUser" />
+          <NavigationProperty Name="SysUser1" Relationship="DB.FK_MIS_Article_SysUser1" FromRole="MIS_Article" ToRole="SysUser" />
         </EntityType>
         <Association Name="FK_MIS_Article_MIS_Article_Category">
           <End Type="DB.MIS_Article_Category" Role="MIS_Article_Category" Multiplicity="1" />
@@ -842,18 +854,6 @@
             </Principal>
             <Dependent Role="MIS_Article">
               <PropertyRef Name="Checker" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MIS_Article_Category_MIS_Article_Category">
-          <End Type="DB.MIS_Article_Category" Role="MIS_Article_Category" Multiplicity="0..1" />
-          <End Type="DB.MIS_Article_Category" Role="MIS_Article_Category1" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MIS_Article_Category">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="MIS_Article_Category1">
-              <PropertyRef Name="ParentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1093,6 +1093,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="MIS_Article_Category">
+            <EntityTypeMapping TypeName="DB.MIS_Article_Category">
+              <MappingFragment StoreEntitySet="MIS_Article_Category">
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="BodyContent" ColumnName="BodyContent" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="MIS_Article">
             <EntityTypeMapping TypeName="DB.MIS_Article">
               <MappingFragment StoreEntitySet="MIS_Article">
@@ -1107,21 +1122,6 @@
                 <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MIS_Article_Category">
-            <EntityTypeMapping TypeName="DB.MIS_Article_Category">
-              <MappingFragment StoreEntitySet="MIS_Article_Category">
-                <ScalarProperty Name="Enable" ColumnName="Enable" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="BodyContent" ColumnName="BodyContent" />
-                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
-                <ScalarProperty Name="Sort" ColumnName="Sort" />
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
