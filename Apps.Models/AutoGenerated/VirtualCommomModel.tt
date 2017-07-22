@@ -6,7 +6,7 @@
 
 const string inputFile = @"../../Apps.Models/DB.edmx";
 var textTransform = DynamicTextTransformation.Create(this); 
-var code = new CodeGenerationTools(this);
+var code = new CodeGenerationTools(this); 
 var ef = new MetadataTools(this);
 var typeMapper = new TypeMapper(code, ef, textTransform.Errors);  
 var	fileManager = EntityFrameworkTemplateFileManager.Create(this);
@@ -15,7 +15,7 @@ var codeStringGenerator = new CodeStringGenerator(code, typeMapper, ef);
 
 if (!typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems(itemCollection), inputFile))
 {
-    return string.Empty;
+    return string.Empty; 
 }
 
 WriteHeader(codeStringGenerator, fileManager);

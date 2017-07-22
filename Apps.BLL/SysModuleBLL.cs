@@ -114,8 +114,7 @@ namespace Apps.BLL
                     errors.add("有下属关联，请先删除下属！");
                     return false;
                 }
-                Rep.Delete(db, id);
-                if (db.SaveChanges() > 0)
+                if (Rep.Delete(id) > 0)
                     return true;
                 else
                 {

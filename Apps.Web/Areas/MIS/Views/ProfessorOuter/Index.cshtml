@@ -1,0 +1,181 @@
+﻿@using Apps.Web.Core;
+@using Apps.Models.Sys;
+@using Apps.Common;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Index_Layout.cshtml";
+    List<PermModel> perm = ViewBag.perm;
+    if (perm == null)
+    {
+        perm = new List<PermModel>();
+    }
+}
+<script src="@Url.Content("~/Scripts/jquery.easyui.plus.js")" type="text/javascript"></script>
+<div id="modalwindow" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false"></div>
+
+<div class="mvctool">
+    <input id="txtQuery" type="text" class="searchText" />
+    @Html.ToolButton("btnQuery", "icon-search", "查询", true, perm, "Query")
+    @Html.ToolButton("btnCreate", "icon-add", "新增", true, perm, "Create")
+    @Html.ToolButton("btnEdit", "icon-edit", "编辑", true, perm, "Edit")
+    @Html.ToolButton("btnDetails", "icon-details", "详细", true, perm, "Details")
+    @Html.ToolButton("btnDelete", "icon-remove", "删除", true, perm, "Delete")
+    @Html.ToolButton("btnImport","icon-add","导入",true,perm,"Import")
+</div>
+<table id="List"></table>
+<div id="uploadExcel" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false">
+    <form>
+        <input type="file" name="file" id="file" value="" />
+        <input type="button" id="btnUpload" value="提交" />
+        <div id="current-bar" class="easyui-progressbar" data-options="value:0" style="width:400px;"></div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('#btnImport').click(function () {
+            $('#uploadExcel').window({ title: '导入', width: 450, height: 160, iconCls: 'icon-details' }).window('open');
+        });
+        $('#btnUpload').click(function () {
+            var file = document.getElementById("file").files[0];
+            if (file == null) {
+                $('#uploadExcel').window('close');
+                frameReturnByMes("请选择上传文件!");
+            }
+            //使用formdata保存文件
+            var formdata = new FormData();
+            formdata.append("file", file);
+
+            //创建xmlhttprequest
+            var request;
+            if (window.XMLHttpRequest) {
+                request = new XMLHttpRequest();
+            } else {
+                request = new ActiveXObject('Microsoft.XMLHTTP');
+            }
+
+            //设置状态事件
+            request.onreadystatechange = function () {
+                if (request.readyState == 4) {//请求完成
+                    var data = request.response //获取响应实体
+                    if (request.status == 200) {//成功的请求
+                        if (data.tag == 1) {
+                            $('#uploadExcel').window('close');
+                            frameReturnByReload(true);
+                            frameReturnByMes(data.message);
+                        } else {
+                            frameReturnByMes(data.message);
+                        }
+                    } else {
+                        frameReturnByMes(data.message);
+                    }
+                }
+            };
+
+            request.responseType = "json"; //设置相应类型为json
+            request.open('POST', '@Url.Action("Import")', true);//初始化请求
+            request.send(formdata);
+
+        });
+    })
+</script>
+<script type="text/javascript">
+   $(function () {
+        $('#List').datagrid({
+            url: '@Url.Action("GetList")',
+            width: $(window).width() - 10,
+            method: 'post',
+            height: $(window).height() - 35,
+            fitColumns: true,
+            sortName: 'uid',
+            sortOrder: 'desc',
+            idField: 'Id',
+            pageSize: 10,
+            pageList: [10, 20, 30, 40, 50],
+            pagination: true,
+            striped: true, //奇偶行是否区分
+            singleSelect: true,//单选模式
+            //rownumbers: true,//行号
+            columns: [[
+                				{ field: 'Id', title: 'Id',width:80 },
+								{ field: 'uid', title: 'uid',width:80 },
+								{ field: 'name', title: 'name',width:80 },
+								{ field: 'sex', title: 'sex',width:80 },
+								{ field: 'position', title: 'position',width:80 },
+								{ field: 'department', title: 'department',width:80 },
+								{ field: 'mobile', title: 'mobile',width:80 },
+								{ field: 'email', title: 'email',width:80 },
+								{ field: 'area', title: 'area',width:80 },
+								{ field: 'profession', title: 'profession',width:80 },
+								{ field: 'office', title: 'office',width:80 },
+								{ field: 'stuNumPG', title: 'stuNumPG',width:80 },
+								{ field: 'referee', title: 'referee',width:80 },
+								{ field: 'location', title: 'location',width:80 },
+								{ field: 'Account', title: 'Account',width:80 },
+				            ]]
+        });
+    });
+    //ifram 返回
+    function frameReturnByClose() {
+        $("#modalwindow").window('close');
+    }
+    function frameReturnByReload(flag) {
+        if (flag)
+            $("#List").datagrid('load');
+        else
+            $("#List").datagrid('reload');
+    }
+    function frameReturnByMes(mes) {
+        $.messageBox5s('提示', mes);
+    }
+    $(function () {
+        $("#btnCreate").click(function () {
+            $("#modalwindow").html("<iframe width='100%' height='98%' scrolling='yes' frameborder='0' src='@Url.Action("Create")'></iframe>");
+            $("#modalwindow").window({ title: '新增', width: 700, height: 400, iconCls: 'icon-add' }).window('open');
+        });
+        $("#btnEdit").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='99%' scrolling='yes'  frameborder='0' src='@Url.Action("Edit")?id=" + row.Id + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '编辑', width: 700, height: 430, iconCls: 'icon-edit' }).window('open');
+            } else { $.messageBox5s('提示', '@Suggestion.PlaseChooseToOperatingRecords'); }
+        });
+        $("#btnDetails").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $("#modalwindow").html("<iframe width='100%' height='98%' scrolling='yes' frameborder='0' src='@Url.Action("Details")?id=" + row.Id + "&Ieguid=" + GetGuid() + "'></iframe>");
+                $("#modalwindow").window({ title: '详细', width: 500, height: 300, iconCls: 'icon-details' }).window('open');
+            } else { $.messageBox5s('提示', '@Suggestion.PlaseChooseToOperatingRecords'); }
+	        });
+        $("#btnQuery").click(function () {
+            var queryStr = $("#txtQuery").val();
+            if (queryStr == null) {
+                queryStr = "%";
+            }
+            $('#List').datagrid({
+                url: '@Url.Action("GetList")?queryStr=' + encodeURI(queryStr)
+            });
+
+        });
+        $("#btnDelete").click(function () {
+            var row = $('#List').datagrid('getSelected');
+            if (row != null) {
+                $.messager.confirm('提示', '@Suggestion.YouWantToDeleteTheSelectedRecords', function (r) {
+	                    if (r) {
+	                        $.post("@Url.Action("Delete")?id=" + row.Id, function (data) {
+                                if (data.tag == 1) {
+                                    $("#List").datagrid('load');
+                                    $.messageBox5s('提示', data.message);
+                                } else {
+                                    $.messageBox5s('提示', data.message);
+                                }
+	                        }, "json");
+
+	                    }
+	                });
+	            } else { $.messageBox5s('提示', '@Suggestion.PlaseChooseToOperatingRecords'); }
+        });
+    });
+</script>
+
+

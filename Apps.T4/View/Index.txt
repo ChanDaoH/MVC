@@ -1,4 +1,5 @@
-﻿
+﻿ 
+
 
 <
 
@@ -46,18 +47,20 @@
             //rownumbers: true,//行号
             columns: [[
                 				{ field: 'Id', title: 'Id',width:80 },
-								{ field: 'ChannelId', title: 'ChannelId',width:80 },
-								{ field: 'CategoryId', title: 'CategoryId',width:80 },
-								{ field: 'Title', title: 'Title',width:80 },
-								{ field: 'ImgUrl', title: 'ImgUrl',width:80 },
-								{ field: 'BodyContent', title: 'BodyContent',width:80 },
-								{ field: 'Sort', title: 'Sort',width:80 },
-								{ field: 'Click', title: 'Click',width:80 },
-								{ field: 'CheckFlag', title: 'CheckFlag',width:80 },
-								{ field: 'Checker', title: 'Checker',width:80 },
-								{ field: 'CheckDateTime', title: 'CheckDateTime',width:80 },
-								{ field: 'Creater', title: 'Creater',width:80 },
-								{ field: 'CreateTime', title: 'CreateTime',width:80 },
+								{ field: 'uid', title: 'uid',width:80 },
+								{ field: 'name', title: 'name',width:80 },
+								{ field: 'sex', title: 'sex',width:80 },
+								{ field: 'position', title: 'position',width:80 },
+								{ field: 'department', title: 'department',width:80 },
+								{ field: 'mobile', title: 'mobile',width:80 },
+								{ field: 'email', title: 'email',width:80 },
+								{ field: 'area', title: 'area',width:80 },
+								{ field: 'profession', title: 'profession',width:80 },
+								{ field: 'office', title: 'office',width:80 },
+								{ field: 'stuNumPG', title: 'stuNumPG',width:80 },
+								{ field: 'referee', title: 'referee',width:80 },
+								{ field: 'location', title: 'location',width:80 },
+								{ field: 'Account', title: 'Account',width:80 },
 				            ]]
         });
     });

@@ -55,6 +55,12 @@ namespace Apps.Core
 
             container.RegisterType<IMIS_Article_CategoryBLL, MIS_Article_CategoryBLL>();
             container.RegisterType<IMIS_Article_CategoryRepository, MIS_Article_CategoryRepository>();
+
+            //excel
+            container.RegisterType<IMIS_PersonBLL, MIS_PersonBLL>();
+            container.RegisterType<IMIS_PersonRepository, MIS_PersonRepository>();
+            container.RegisterType<IMIS_ProfessorOuterBLL, MIS_ProfessorOuterBLL>();
+            container.RegisterType<IMIS_ProfessorOuterRepository, MIS_ProfessorOuterRepository>();
         }
     }
 }
