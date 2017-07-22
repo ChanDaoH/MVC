@@ -10,6 +10,8 @@
 <script type="text/javascript">
     $(function () {
         $("#btnSave").click(function () {
+            if ($("#CreateForm").valid()) {
+
 
                 $.ajax({
                     url: "/SysSample/Create",
@@ -23,10 +25,14 @@
                             window.parent.frameReturnByClose()
                         }
                         else {
-                            window.parent.frameReturnByMes(data.message+data.value);
+                            window.parent.frameReturnByMes(data.message + data.value);
                         }
                     }
                 });
+            } else {
+                alert("不合法");
+                return false;
+            }
         });
     });
 </script>
@@ -36,6 +42,7 @@
 </div>
 @using (Html.BeginForm("Create", "SysSample", null, FormMethod.Post, new { Id = "CreateForm" }))
 {
+    @Html.ValidationSummary(true)
     <table class="fromEditTable setTextWidth300">
         <tbody>
             <tr>
@@ -45,6 +52,7 @@
                 <td style="width:310px">
                     @Html.EditorFor(model => model.Id)
                 </td>
+                <td>@Html.ValidationMessageFor(model => model.Id)</td>
             </tr>
             <tr>
                 <td style="width:100px; text-align:right;">
@@ -53,7 +61,7 @@
                 <td>
                     @Html.EditorFor(model => model.Name)
                 </td>
-               
+                <td>@Html.ValidationMessageFor(model => model.Name)</td>
             </tr>
             <tr>
                 <td style="width:100px; text-align:right;">

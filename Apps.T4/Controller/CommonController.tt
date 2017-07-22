@@ -27,7 +27,7 @@ using Microsoft.Practices.Unity;
 
 namespace Apps.Web.Areas.MIS.Controllers 
 {
-	 public class ArticleController : BaseController
+	 public class <#=config.TableName#>Controller : BaseController
     {
         //业务层注入
         [Dependency]
@@ -174,7 +174,7 @@ namespace Apps.Web.Areas.MIS.Controllers
     {
         public static readonly string ConnectionString="Data Source=(local);Initial Catalog=AppsDB;User ID=sa;Password=huanggang1128;";
         public static readonly string DbDatabase="AppsDB";
-        public static readonly string TableName="MIS_Article";
+        public static readonly string TableName="MIS_ProfessorOuter";
         public static readonly string nameSpace="Apps.Sys";
     }
 #>

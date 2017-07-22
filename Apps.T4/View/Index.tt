@@ -10,7 +10,7 @@
 <#@ import namespace="System.Data.SqlClient" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.IO" #>
-<#@ output extension=".txt" #>
+<#@ output extension=".txt" #> 
 <#@ include file="../DbHelper.ttinclude" #>
 
 @using Apps.Web.Core;
@@ -131,7 +131,7 @@
     {
         public static readonly string ConnectionString="Data Source=(local);Initial Catalog=AppsDB;User ID=sa;Password=huanggang1128;";
         public static readonly string DbDatabase="AppsDB";
-        public static readonly string TableName="MIS_Article";
+        public static readonly string TableName="MIS_ProfessorOuter";
         public static readonly string nameSpace="Apps.Sys";
     }
 #>

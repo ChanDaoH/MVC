@@ -20,12 +20,14 @@
         <AssociationConnector Association="DB.FK_SysModule_SysModule" />
         <AssociationConnector Association="DB.FK_SysModuleOperate_SysModule" />
         <AssociationConnector Association="DB.FK_SysRight_SysModule" />
-        <EntityTypeShape EntityType="DB.MIS_Article_Category" Width="1.5" PointX="0.75" PointY="9.375" />
+        <EntityTypeShape EntityType="DB.MIS_Article_Category" Width="1.5" PointX="6.375" PointY="7.75" />
         <AssociationConnector Association="DB.FK_MIS_Article_Category_MIS_Article_Category" />
         <EntityTypeShape EntityType="DB.MIS_Article" Width="1.5" PointX="9.5" PointY="4.5" />
         <AssociationConnector Association="DB.FK_MIS_Article_MIS_Article_Category" />
         <AssociationConnector Association="DB.FK_MIS_Article_SysUser" />
         <AssociationConnector Association="DB.FK_MIS_Article_SysUser1" />
+        <EntityTypeShape EntityType="DB.MIS_Person" Width="1.5" PointX="2.375" PointY="9.875" />
+        <EntityTypeShape EntityType="DB.MIS_ProfessorOuter" Width="1.5" PointX="8.375" PointY="9.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

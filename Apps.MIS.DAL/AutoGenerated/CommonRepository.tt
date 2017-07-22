@@ -5,9 +5,9 @@
  <#
 const string usingName="MIS";
 const string inputFile = @"../../Apps.Models/DB.edmx";
-var textTransform = DynamicTextTransformation.Create(this);
-var code = new CodeGenerationTools(this); 
-var ef = new MetadataTools(this);
+var textTransform = DynamicTextTransformation.Create(this); 
+var code = new CodeGenerationTools(this);  
+var ef = new MetadataTools(this); 
 var typeMapper = new TypeMapper(code, ef, textTransform.Errors);
 var	fileManager = EntityFrameworkTemplateFileManager.Create(this);
 var itemCollection = new EdmMetadataLoader(textTransform.Host, textTransform.Errors).CreateEdmItemCollection(inputFile);
@@ -31,7 +31,7 @@ using Apps.MIS.IDAL;
 
 namespace Apps.MIS.DAL
 {
-	public partial class <#=entity.Name#>Repository : CommonRepository<<#=entity.Name#>>
+	public partial class <#=entity.Name#>Repository : CommonRepository<<#=entity.Name#>>,I<#=entity.Name#>Repository
 	{
 		public <#=entity.Name#>Repository(DBContainer db) : base(db)
 		{

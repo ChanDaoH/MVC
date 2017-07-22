@@ -12,7 +12,7 @@ using Apps.MIS.IDAL;
 
 namespace Apps.MIS.DAL
 {
-	public partial class MIS_ArticleRepository : CommonRepository<MIS_Article>
+	public partial class MIS_ArticleRepository : CommonRepository<MIS_Article>,IMIS_ArticleRepository
 	{
 		public MIS_ArticleRepository(DBContainer db) : base(db)
 		{

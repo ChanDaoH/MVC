@@ -163,6 +163,8 @@
     <Compile Include="Areas\MIS\Controllers\CategoryController.cs" />
     <Compile Include="Areas\MIS\Controllers\ManageArticleController.cs" />
     <Compile Include="Areas\MIS\Controllers\MyArticleController.cs" />
+    <Compile Include="Areas\MIS\Controllers\PersonController.cs" />
+    <Compile Include="Areas\MIS\Controllers\ProfessorOuterController.cs" />
     <Compile Include="Areas\MIS\MISAreaRegistration.cs" />
     <Compile Include="Areas\TEST\Controllers\FileController.cs" />
     <Compile Include="Areas\TEST\TESTAreaRegistration.cs" />
@@ -538,6 +540,8 @@
     <Content Include="Areas\MIS\Views\ManageArticle\Details.cshtml" />
     <Content Include="Areas\MIS\Views\ManageArticle\Edit.cshtml" />
     <Content Include="Areas\MIS\Views\ManageArticle\Create.cshtml" />
+    <Content Include="Areas\MIS\Views\Person\Index.cshtml" />
+    <Content Include="Areas\MIS\Views\ProfessorOuter\Index.cshtml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Content\Images\Logo.psd" />
     <Content Include="Content\Images\sunny\Logo.psd" />

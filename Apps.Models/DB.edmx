@@ -37,6 +37,42 @@
           <Property Name="CreateTime" Type="datetime" />
           <Property Name="Enable" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="MIS_Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sex" Type="nchar" MaxLength="10" />
+          <Property Name="Age" Type="int" />
+          <Property Name="IDCard" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Address" Type="nvarchar" MaxLength="300" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="Region" Type="nvarchar" MaxLength="50" />
+          <Property Name="Category" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MIS_ProfessorOuter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="uid" Type="varchar" MaxLength="50" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="sex" Type="varchar" MaxLength="50" />
+          <Property Name="position" Type="varchar" MaxLength="200" />
+          <Property Name="department" Type="varchar" MaxLength="150" />
+          <Property Name="mobile" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="area" Type="varchar(max)" />
+          <Property Name="profession" Type="varchar" MaxLength="100" />
+          <Property Name="office" Type="varchar(max)" />
+          <Property Name="stuNumPG" Type="varchar" MaxLength="100" />
+          <Property Name="referee" Type="varchar" MaxLength="100" />
+          <Property Name="location" Type="varchar" MaxLength="50" />
+          <Property Name="Account" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="SysException">
           <Key>
             <PropertyRef Name="Id" />
@@ -225,18 +261,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SysModule_SysModule">
-          <End Role="SysModule" Type="Self.SysModule" Multiplicity="0..1" />
-          <End Role="SysModule1" Type="Self.SysModule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SysModule">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="SysModule1">
-              <PropertyRef Name="ParentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SysModuleOperate_SysModule">
           <End Role="SysModule" Type="Self.SysModule" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -354,6 +378,8 @@
         <EntityContainer Name="DBStoreContainer">
           <EntitySet Name="MIS_Article" EntityType="Self.MIS_Article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MIS_Article_Category" EntityType="Self.MIS_Article_Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MIS_Person" EntityType="Self.MIS_Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MIS_ProfessorOuter" EntityType="Self.MIS_ProfessorOuter" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysException" EntityType="Self.SysException" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysLog" EntityType="Self.SysLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SysModule" EntityType="Self.SysModule" Schema="dbo" store:Type="Tables" />
@@ -379,10 +405,6 @@
           <AssociationSet Name="FK_MIS_Article_SysUser1" Association="Self.FK_MIS_Article_SysUser1">
             <End Role="SysUser" EntitySet="SysUser" />
             <End Role="MIS_Article" EntitySet="MIS_Article" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SysModule_SysModule" Association="Self.FK_SysModule_SysModule">
-            <End Role="SysModule" EntitySet="SysModule" />
-            <End Role="SysModule1" EntitySet="SysModule" />
           </AssociationSet>
           <AssociationSet Name="FK_SysModuleOperate_SysModule" Association="Self.FK_SysModuleOperate_SysModule">
             <End Role="SysModule" EntitySet="SysModule" />
@@ -495,6 +517,8 @@
             <End Role="SysUser" EntitySet="SysUser" />
             <End Role="MIS_Article" EntitySet="MIS_Article" />
           </AssociationSet>
+          <EntitySet Name="MIS_Person" EntityType="DB.MIS_Person" />
+          <EntitySet Name="MIS_ProfessorOuter" EntityType="DB.MIS_ProfessorOuter" />
         </EntityContainer>
         <EntityType Name="SysSample">
           <Key>
@@ -857,6 +881,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="MIS_Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="IDCard" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Region" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MIS_ProfessorOuter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="uid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="position" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="department" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="area" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="profession" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="office" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="stuNumPG" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="referee" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="location" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1123,6 +1183,44 @@
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MIS_Person">
+            <EntityTypeMapping TypeName="DB.MIS_Person">
+              <MappingFragment StoreEntitySet="MIS_Person">
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IDCard" ColumnName="IDCard" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MIS_ProfessorOuter">
+            <EntityTypeMapping TypeName="DB.MIS_ProfessorOuter">
+              <MappingFragment StoreEntitySet="MIS_ProfessorOuter">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="referee" ColumnName="referee" />
+                <ScalarProperty Name="stuNumPG" ColumnName="stuNumPG" />
+                <ScalarProperty Name="office" ColumnName="office" />
+                <ScalarProperty Name="profession" ColumnName="profession" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="mobile" ColumnName="mobile" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="position" ColumnName="position" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="uid" ColumnName="uid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
