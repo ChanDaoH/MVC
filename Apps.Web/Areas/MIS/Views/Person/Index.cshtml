@@ -22,7 +22,7 @@
     @Html.ToolButton("btnDetails", "icon-details", "详细", true, perm, "Details")
     @Html.ToolButton("btnDelete", "icon-remove", "删除", true, perm, "Delete")
     @Html.ToolButton("btnImport","icon-excelt","导入",true,perm,"Import")
-    
+    @Html.ToolButton("btnExport", "icon-edit", "导出", true, perm, "Export")
 </div>
 <table id="List"></table>
 <div id="uploadExcel" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false">
@@ -37,6 +37,10 @@
         $('#btnImport').click(function () {
             $('#uploadExcel').window({ title: '导入', width: 450, height: 160, iconCls: 'icon-details' }).window('open');
         });
+        $('#btnExport').click(function () {
+            $("#modalwindow").html("<iframe width='100%' height='98%' scrolling='yes' frameborder='0' src='@Url.Action("Export")'></iframe>");
+            $("#modalwindow").window({ title: '新增', width: 700, height: 400, iconCls: 'icon-add' }).window('open').window('close');
+        })
         $('#btnUpload').click(function () {
             var file = document.getElementById("file").files[0];
             if (file == null) {
@@ -59,7 +63,7 @@
 
             request.onreadystatechange = function () {
                 if (request.readyState == 4) {//请求完成
-                    
+
                     var data = request.response;
                     if (request.status == 200) {//请求返回成功
                         if (data.tag == 1) {//保存成功

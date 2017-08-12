@@ -1,7 +1,7 @@
 ﻿@using Apps.Web.Core;
 @using Apps.Models.Sys;
 @using Apps.Common;
-
+@model Apps.Models.Sys.MIS_ProfessorOuterModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Index_Layout.cshtml";
@@ -27,14 +27,15 @@
 <div id="uploadExcel" class="easyui-window" data-options="modal:true,closed:true,minimizable:false,shadow:false">
     <form>
         <input type="file" name="file" id="file" value="" />
-        <input type="button" id="btnUpload" value="提交" />
-        <div id="current-bar" class="easyui-progressbar" data-options="value:0" style="width:400px;"></div>
+        <input type="button" id="btnUpload" value="预览" />
+        <table id="ImportList"></table>
+        <input type="button" id="btnSave" value="提交" />
     </form>
 </div>
 <script type="text/javascript">
     $(function () {
         $('#btnImport').click(function () {
-            $('#uploadExcel').window({ title: '导入', width: 450, height: 160, iconCls: 'icon-details' }).window('open');
+            $('#uploadExcel').window({ title: '导入', width: 800, height: 500, iconCls: 'icon-details' }).window('open');
         });
         $('#btnUpload').click(function () {
             var file = document.getElementById("file").files[0];
@@ -60,9 +61,7 @@
                     var data = request.response //获取响应实体
                     if (request.status == 200) {//成功的请求
                         if (data.tag == 1) {
-                            $('#uploadExcel').window('close');
-                            frameReturnByReload(true);
-                            frameReturnByMes(data.message);
+                            ShowImportData();
                         } else {
                             frameReturnByMes(data.message);
                         }
@@ -77,7 +76,58 @@
             request.send(formdata);
 
         });
+        $("#btnSave").click(function () {
+            var rows = $('#ImportList').datagrid('getRows');
+            $.each(rows, function (i, row) {
+                $.ajax('@Url.Action("SaveData")', {
+                    type: 'POST',
+                    dataType: 'json',
+                    data : row
+                });
+            });
+        });
     })
+</script>
+<script type="text/javascript">
+    function ShowImportData() {
+        $('#ImportList').datagrid({
+            url: '@Url.Action("GetImportData")',
+            width: $(window).width(),
+            method: 'post',
+            height: $(window).height(),
+            fitColumns: true,
+            sortName: 'uid',
+            sortOrder: 'desc',
+            idField: 'Id',
+            striped: true, //奇偶行是否区分
+            singleSelect: true,//单选模式
+            //rownumbers: true,//行号
+            columns: [[
+                { field: 'Id', title: 'Id', width: 80 },
+                {
+                    field: 'uid', title: '导师编号', width: 80, styler: function (value, row, index) {
+                        if (value === "" || value == null) {
+                            return 'background-color:#ffee00;color:red;';
+                        }
+                    }
+                },
+								{ field: 'name', title: 'name',width:80 },
+								{ field: 'sex', title: 'sex',width:80 },
+								{ field: 'position', title: 'position',width:80 },
+								{ field: 'department', title: 'department',width:80 },
+								{ field: 'mobile', title: 'mobile',width:80 },
+								{ field: 'email', title: 'email',width:80 },
+								{ field: 'area', title: 'area',width:80 },
+								{ field: 'profession', title: 'profession',width:80 },
+								{ field: 'office', title: 'office',width:80 },
+								{ field: 'stuNumPG', title: 'stuNumPG',width:80 },
+								{ field: 'referee', title: 'referee',width:80 },
+								{ field: 'location', title: 'location',width:80 },
+								{ field: 'Account', title: 'Account',width:80 },
+            ]]
+        });
+    }
+
 </script>
 <script type="text/javascript">
    $(function () {

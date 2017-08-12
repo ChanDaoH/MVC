@@ -9,6 +9,8 @@ using Apps.Common;
 using Apps.Models.Sys;
 using Microsoft.Practices.Unity;
 using System.IO;
+using System.Collections;
+using Newtonsoft.Json.Linq;
 
 namespace Apps.Web.Areas.MIS.Controllers
 {
@@ -17,7 +19,7 @@ namespace Apps.Web.Areas.MIS.Controllers
         //业务层注入
         [Dependency]
         public IMIS_ProfessorOuterBLL m_BLL { get; set; }
-
+        public static string _fileName { get; set; }
         public ValidationErrors errors = new ValidationErrors();
 
         // GET: MIS/Article
@@ -170,10 +172,8 @@ namespace Apps.Web.Areas.MIS.Controllers
             string _fileSaveName = "";
             List<MIS_ProfessorOuterModel> modelList = new List<MIS_ProfessorOuterModel>();
             JsonMessage saveResult = SaveFile(ref _fileSaveName);
-            if(saveResult.tag == 0) //保存过程中有失败
-            {
-                return Json(saveResult);
-            }
+            return Json(saveResult);
+            /*
             bool checkResult = m_BLL.CheckImportData(_fileSaveName, ref modelList, ref errors);
             if(checkResult)   //可以保存
             {
@@ -184,7 +184,38 @@ namespace Apps.Web.Areas.MIS.Controllers
             {
                 return Json(JsonHandler.CreateMessage(0, "失败:<br/>"+errors.Error));
             }
-
+            */
+        }
+        public void SaveData(MIS_ProfessorOuterModel model)
+        {
+            m_BLL.Create(ref errors, model);
+        }
+        public JsonResult GetImportData()
+        {
+            List<MIS_ProfessorOuterModel> modelList = m_BLL.GetImportData(_fileName);
+            var json = new
+            {
+                rows = (from r in modelList
+                        select new MIS_ProfessorOuterModel()
+                        {
+                            Id = r.Id,
+                            uid = r.uid,
+                            name = r.name,
+                            sex = r.sex,
+                            position = r.position,
+                            department = r.department,
+                            mobile = r.mobile,
+                            email = r.email,
+                            area = r.area,
+                            profession = r.profession,
+                            office = r.office,
+                            stuNumPG = r.stuNumPG,
+                            referee = r.referee,
+                            location = r.location,
+                            Account = r.Account
+                        }).ToArray()
+            };
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
         public JsonMessage SaveFile(ref string _fileSaveName)
         {
@@ -202,6 +233,7 @@ namespace Apps.Web.Areas.MIS.Controllers
             }
             string fileSavePath = HttpRuntime.AppDomainAppPath + "/Uploads/" + fileSaveName + fileExtension;
             _fileSaveName = fileSavePath;
+            _fileName = fileSavePath;
             //保存文件,每次写入2MB
             byte[] buffer;
             Stream stream = file.InputStream;//获取输入流

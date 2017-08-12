@@ -12,5 +12,6 @@ namespace Apps.MIS.IBLL
     {
         bool CheckImportData(string fileName, ref List<MIS_ProfessorOuterModel> modelList, ref ValidationErrors errors);
         void SaveImportData(IEnumerable<MIS_ProfessorOuterModel> modelList);
+        List<MIS_ProfessorOuterModel> GetImportData(string fileName);
     }
 }
