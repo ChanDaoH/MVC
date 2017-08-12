@@ -1,0 +1,38 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="../../Apps.Flow.Models/Common.ttinclude"#><#@ 
+ output extension=".cs"#><#
+
+const string inputFile = @"../../Apps.Flow.Models/Flow.edmx";
+var textTransform = DynamicTextTransformation.Create(this);
+var code = new CodeGenerationTools(this);
+var ef = new MetadataTools(this);
+var typeMapper = new TypeMapper(code, ef, textTransform.Errors);
+var	fileManager = EntityFrameworkTemplateFileManager.Create(this);
+var itemCollection = new EdmMetadataLoader(textTransform.Host, textTransform.Errors).CreateEdmItemCollection(inputFile);
+var codeStringGenerator = new CodeStringGenerator(code, typeMapper, ef);
+
+if (!typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems(itemCollection), inputFile))
+{
+    return string.Empty;
+}
+
+WriteHeader(codeStringGenerator, fileManager);
+
+foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
+{
+    fileManager.StartNewFile("I"+entity.Name + "BLL.cs");
+#>
+
+using System;
+using Apps.Flow.Models.Sys;
+
+namespace Apps.Flow.IBLL
+{
+	public partial interface I<#=entity.Name#>BLL : ICommonBLL<<#=entity.Name#>Model>
+	{
+	}
+<# 
+	EndNamespace(code);
+}
+fileManager.Process();
+#>

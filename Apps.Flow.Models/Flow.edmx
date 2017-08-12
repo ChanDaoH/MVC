@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Flow.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="SysStruct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ParentId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sort" Type="int" Nullable="false" />
+          <Property Name="Higher" Type="varchar" MaxLength="50" />
+          <Property Name="Enable" Type="bit" Nullable="false" />
+          <Property Name="Remark" Type="varchar" MaxLength="500" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SysStruct_SysStruct">
+          <End Role="SysStruct" Type="Self.SysStruct" Multiplicity="1" />
+          <End Role="SysStruct1" Type="Self.SysStruct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysStruct">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SysStruct1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FlowStoreContainer">
+          <EntitySet Name="SysStruct" EntityType="Self.SysStruct" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SysStruct_SysStruct" Association="Self.FK_SysStruct_SysStruct">
+            <End Role="SysStruct" EntitySet="SysStruct" />
+            <End Role="SysStruct1" EntitySet="SysStruct" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Flow" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="FlowContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SysStruct" EntityType="Flow.SysStruct" />
+          <AssociationSet Name="FK_SysStruct_SysStruct" Association="Flow.FK_SysStruct_SysStruct">
+            <End Role="SysStruct" EntitySet="SysStruct" />
+            <End Role="SysStruct1" EntitySet="SysStruct" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="SysStruct">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParentId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sort" Type="Int32" Nullable="false" />
+          <Property Name="Higher" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Enable" Type="Boolean" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SysStruct1" Relationship="Flow.FK_SysStruct_SysStruct" FromRole="SysStruct" ToRole="SysStruct1" />
+          <NavigationProperty Name="SysStruct2" Relationship="Flow.FK_SysStruct_SysStruct" FromRole="SysStruct1" ToRole="SysStruct" />
+        </EntityType>
+        <Association Name="FK_SysStruct_SysStruct">
+          <End Type="Flow.SysStruct" Role="SysStruct" Multiplicity="1" />
+          <End Type="Flow.SysStruct" Role="SysStruct1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SysStruct">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SysStruct1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="Flow" />
+        <Alias Key="Target" Value="Flow.Store" />
+        <EntityContainerMapping CdmEntityContainer="FlowContainer" StorageEntityContainer="FlowStoreContainer">
+          <EntitySetMapping Name="SysStruct">
+            <EntityTypeMapping TypeName="Flow.SysStruct">
+              <MappingFragment StoreEntitySet="SysStruct">
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Enable" ColumnName="Enable" />
+                <ScalarProperty Name="Higher" ColumnName="Higher" />
+                <ScalarProperty Name="Sort" ColumnName="Sort" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

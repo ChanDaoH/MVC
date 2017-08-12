@@ -1,0 +1,51 @@
+﻿<#@ template language="C#" debug="false" hostspecific="true"#>
+<#@ include file="../Common.ttinclude"#><#@ 
+ output extension=".cs"#><#
+
+const string inputFile = @"../Flow.edmx";
+var textTransform = DynamicTextTransformation.Create(this);
+var code = new CodeGenerationTools(this);
+var ef = new MetadataTools(this);
+var typeMapper = new TypeMapper(code, ef, textTransform.Errors);
+var	fileManager = EntityFrameworkTemplateFileManager.Create(this);
+var itemCollection = new EdmMetadataLoader(textTransform.Host, textTransform.Errors).CreateEdmItemCollection(inputFile);
+var codeStringGenerator = new CodeStringGenerator(code, typeMapper, ef);
+
+if (!typeMapper.VerifyCaseInsensitiveTypeUniqueness(typeMapper.GetAllGlobalItems(itemCollection), inputFile))
+{
+    return string.Empty;
+}
+
+WriteHeader(codeStringGenerator, fileManager);
+
+foreach (var entity in typeMapper.GetItemsToGenerate<EntityType>(itemCollection))
+{
+    fileManager.StartNewFile("Virtual_"+entity.Name + "Model.cs");
+    var simpleProperties = typeMapper.GetSimpleProperties(entity);
+#>
+using System;
+
+namespace Apps.Flow.Models.Sys
+{
+	public partial class <#=entity.Name#>Model : Virtual_<#=entity.Name#>Model
+	{
+
+	}
+	public class Virtual_<#=entity.Name#>Model
+	{
+<# 
+		if(simpleProperties.Any())
+        {
+			foreach(var edmProperty in simpleProperties)
+            {
+#>		public virtual <#=typeMapper.GetTypeName(edmProperty.TypeUsage)#> <#=edmProperty#>{get;set;}
+<#            }
+        }
+#>
+	}
+<# 
+	EndNamespace(code);
+}
+fileManager.Process();
+#>
+

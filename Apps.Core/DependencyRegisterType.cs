@@ -13,6 +13,11 @@ using Apps.MIS.BLL;
 using Apps.MIS.IDAL;
 using Apps.MIS.DAL;
 
+using Apps.Flow.IDAL;
+using Apps.Flow.DAL;
+using Apps.Flow.IBLL;
+using Apps.Flow.BLL;
+
 namespace Apps.Core
 {
     public class DependencyRegisterType
@@ -61,6 +66,10 @@ namespace Apps.Core
             container.RegisterType<IMIS_PersonRepository, MIS_PersonRepository>();
             container.RegisterType<IMIS_ProfessorOuterBLL, MIS_ProfessorOuterBLL>();
             container.RegisterType<IMIS_ProfessorOuterRepository, MIS_ProfessorOuterRepository>();
+
+            //SysStruct
+            container.RegisterType<ISysStructBLL, SysStructBLL>();
+            container.RegisterType<ISysStructRepository, SysStructRepository>();
         }
     }
 }
