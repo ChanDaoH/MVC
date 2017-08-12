@@ -114,5 +114,44 @@ namespace Apps.MIS.BLL
                 throw;
             }
         }
+        public List<MIS_ProfessorOuterModel> GetImportData(string fileName)
+        {
+            
+                var excel = new ExcelQueryFactory(fileName);
+                //映射excel列名
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.uid, "证书编号");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.name, "姓名");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.stuNumPG, "意向人数");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.sex, "性别");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.position, "职称/职务");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.department, "单位");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.mobile, "手机");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.email, "邮箱");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.area, "熟悉的业务内容");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.profession, "所属行业");
+                excel.AddMapping<MIS_ProfessorOuterModel>(r => r.office, "办公地址");
+
+                var excelContent = excel.WorksheetRange<MIS_ProfessorOuterModel>("A2", "K100", "2016届");
+
+                List<MIS_ProfessorOuterModel> modelList = new List<MIS_ProfessorOuterModel>();
+                foreach(var row in excelContent)
+                {
+                    var professor = new MIS_ProfessorOuterModel();
+                    professor.Id = row.Id;
+                    professor.uid = row.uid;
+                    professor.name = row.name;
+                    professor.sex = row.sex;
+                    professor.position = row.position;
+                    professor.department = row.department;
+                    professor.mobile = row.mobile;
+                    professor.email = row.email;
+                    professor.area = row.area;
+                    professor.profession = row.profession;
+                    professor.office = row.office;
+                    modelList.Add(professor);
+                }
+                return modelList;
+     
+        }
     }
 }

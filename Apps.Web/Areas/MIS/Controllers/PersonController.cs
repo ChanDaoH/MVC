@@ -9,6 +9,9 @@ using Apps.Common;
 using Apps.Models.Sys;
 using Microsoft.Practices.Unity;
 using System.IO;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using System.Data;
 
 namespace Apps.Web.Areas.MIS.Controllers
 {
@@ -215,6 +218,56 @@ namespace Apps.Web.Areas.MIS.Controllers
                 return Json(JsonHandler.CreateMessage(0, Suggestion.InsertFail +"<br/>"+ ErrorCol));
             }
 
+        }
+        #endregion
+        #region 导出
+        [SupportFilter]
+        public ActionResult Export()
+        {
+            var exportSource = this.GetExportData();
+            var js = exportSource.ToString();
+            var dt = JsonConvert.DeserializeObject<DataTable>(exportSource.ToString());
+            var exportFileName = string.Concat(
+               "Person",
+               DateTime.Now.ToString("yyyyMMddHHmmss"),
+               ".xlsx");
+            return new ExportExcelResult
+            {
+                SheetName = "人员列表",
+                FileName = exportFileName,
+                ExportData = dt
+            };
+        }
+
+        private JArray GetExportData()
+        {
+            GridPager pager = new GridPager
+            {
+                rows = 1000,
+                page = 1,
+                order = "asc",
+                sort = "Id",
+            };
+            List<MIS_PersonModel> list = m_BLL.GetList(ref pager, "");
+            JArray jObjects = new JArray();
+
+            foreach (var item in list)
+            {
+                var jo = new JObject();
+                jo.Add("Id", item.Id);
+                jo.Add("Name", item.Name);
+                jo.Add("Sex", item.Sex);
+                jo.Add("Age", item.Age);
+                jo.Add("IDCard", item.IDCard);
+                jo.Add("Phone", item.Phone);
+                jo.Add("Email", item.Email);
+                jo.Add("Address", item.Address);
+                jo.Add("CreateTime", item.CreateTime);
+                jo.Add("Region", item.Region);
+                jo.Add("Category", item.Category);
+                jObjects.Add(jo);
+            }
+            return jObjects;
         }
         #endregion
     }
